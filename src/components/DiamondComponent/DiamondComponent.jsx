@@ -38,18 +38,6 @@ const DIAMOND_LIST = [
     carat: 1.3,
     img: "src/assets/6.avif",
   },
-  {
-    id: 7,
-    name: "Asscher Cut",
-    carat: 1.3,
-    img: "src/assets/7.avif",
-  },
-  {
-    id: 8,
-    name: "Princess Cut",
-    carat: 1.3,
-    img: "src/assets/8.avif",
-  },
 ];
 
 // Styles as JavaScript objects

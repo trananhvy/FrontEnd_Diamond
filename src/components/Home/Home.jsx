@@ -6,11 +6,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import DiamondComponent from "../../components/DiamondComponent/DiamondComponent";
 function Home() {
   const [category, setCategory] = useState("All");
-  useContext;
+  const [menu, setMenu] = useState("home");
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar menu={menu} setMenu={setMenu} />
       </div>
       <div>
         <Headers />

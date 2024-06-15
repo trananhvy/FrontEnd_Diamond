@@ -4,10 +4,11 @@ import Button from "react-bootstrap/Button";
 import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 function Blogs() {
+  const [menu, setMenu] = useState("blogs");
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar menu={menu} setMenu={setMenu} />
       </div>
     </>
   );

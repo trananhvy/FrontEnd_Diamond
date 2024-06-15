@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Button from "react-bootstrap/Button";
-import Headers from "../../components/Headers/Headers";
-function Navbar() {
-  const [menu, setMenu] = useState("home");
+import Login from "../../components/Login/Login";
+function Navbar({ menu, setMenu }) {
+  const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLogin(true);
+    signIn();
+  };
+
+  const handleLogoutClick = () => {
+    // Add logic to handle logout here
+    setShowLogin(false);
+    signOut();
+  };
+
   const bodyStyle = {
     margin: 0,
     padding: 0,
@@ -14,6 +28,7 @@ function Navbar() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: "#f8f9fa",
   };
   const navbarMenuStyle = {
     display: "flex",
@@ -21,7 +36,7 @@ function Navbar() {
     gap: "20px",
     color: "#49557e",
     fontSize: "20px",
-    marginRight: "350px",
+    marginRight: "185px",
     marginTop: "10px",
   };
   const activeStyle = {
@@ -41,10 +56,13 @@ function Navbar() {
     fontSize: "100%",
   };
   const liStyle = {
-    marginLeft: "80px",
+    marginLeft: "30px",
     cursor: "pointer",
     fontSize: "100%",
     fontWeight: 600,
+    gap: "20px",
+    marginRight: "10px",
+    margin: "0px 20px 10px 20px",
   };
   return (
     <>
@@ -104,9 +122,18 @@ function Navbar() {
               </li>
             </ul>
             <div>
-              <Button type="submit">Sign In</Button>
+              {isLoggedIn ? (
+                <Button type="submit" onClick={handleLogoutClick}>
+                  Logout
+                </Button>
+              ) : (
+                <Button type="submit" onClick={handleLoginClick}>
+                  Login
+                </Button>
+              )}
             </div>
           </div>
+          <div>{showLogin && <Login />}</div>
         </>
       </div>
     </>

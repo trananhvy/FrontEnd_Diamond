@@ -4,10 +4,11 @@ import Button from "react-bootstrap/Button";
 import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 function Prices() {
+  const [menu, setMenu] = useState("prices");
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar menu={menu} setMenu={setMenu} />
       </div>
     </>
   );

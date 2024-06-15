@@ -5,10 +5,11 @@ import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 import CertificateComponent from "../../components/CertificateComponent/CertificateComponent";
 function DiamondCheck() {
+  const [menu, setMenu] = useState("diamondcheck");
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar menu={menu} setMenu={setMenu} />
       </div>
       <div>
         <CertificateComponent />
