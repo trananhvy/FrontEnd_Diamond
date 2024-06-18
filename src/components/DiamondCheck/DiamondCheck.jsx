@@ -4,14 +4,18 @@ import Button from "react-bootstrap/Button";
 import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 import CertificateComponent from "../../components/CertificateComponent/CertificateComponent";
+import Footer from "../../components/Footer/Footer";
 function DiamondCheck() {
   const [menu, setMenu] = useState("diamondcheck");
+  const body = {
+    backgroundColor: "#FAF6F0",
+  };
   return (
     <>
-      <div>
+      <div style={body}>
         <Navbar menu={menu} setMenu={setMenu} />
       </div>
-      <div>
+      <div style={body}>
         <CertificateComponent />
       </div>
     </>

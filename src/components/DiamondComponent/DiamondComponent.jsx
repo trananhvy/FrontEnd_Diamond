@@ -38,14 +38,29 @@ const DIAMOND_LIST = [
     carat: 1.3,
     img: "src/assets/6.avif",
   },
+  {
+    id: 7,
+    name: "Assher Cut",
+    carat: 1.3,
+    img: "src/assets/6.avif",
+  },
+  {
+    id: 8,
+    name: "Heart Cut",
+    carat: 1.3,
+    img: "src/assets/6.avif",
+  },
+  {
+    id: 9,
+    name: "Princess Cut",
+    carat: 1.3,
+    img: "src/assets/6.avif",
+  },
 ];
 
 // Styles as JavaScript objects
 const styles = {
-  diamondComponent: {
-    display: "flex",
-    justifyContent: "flex-start",
-  },
+  diamondComponent: {},
   diamondMenu: {
     display: "flex",
     flexDirection: "column",
@@ -72,10 +87,8 @@ const styles = {
     gap: "30px",
     textAlign: "center",
     margin: "20px 0",
-    overflowX: "auto", // Use "auto" instead of "scroll"
-    scrollBehavior: "smooth", // Optional: Add smooth scrolling effect
-    WebkitOverflowScrolling: "touch", // Optional: Enable smooth scrolling on iOS devices
-    paddingRight: "10px", // Optional: Add some padding to the right to prevent cutoff
+    overflowX: "scroll",
+    scrollBehavior: "smooth",
   },
   diamondItem: {
     display: "inline-block",
@@ -104,7 +117,7 @@ const styles = {
 
 function DiamondComponent({ category, setCategory }) {
   return (
-    <div style={styles.diamondComponent}>
+    <div>
       <div style={styles.diamondMenu}>
         <h1 style={styles.diamondMenuH1}>Diamond List</h1>
         <p style={styles.diamondMenuText}>

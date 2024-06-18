@@ -3,12 +3,13 @@
   font-family: Outfit;
   padding: 0px;
   margin: 0px;
-
+  background-color: #f8f9d7;
   box-sizing: border-box;
 }
 .app {
   width: 80%;
   margin: auto;
+  background-color: #f8f9d7;
 }
 body {
   min-height: 100vh;

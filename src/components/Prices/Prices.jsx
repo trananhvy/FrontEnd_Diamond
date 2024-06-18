@@ -5,10 +5,18 @@ import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 function Prices() {
   const [menu, setMenu] = useState("prices");
+  const body = {
+    backgroundColor: "#FAF6F0",
+  };
   return (
     <>
-      <div>
-        <Navbar menu={menu} setMenu={setMenu} />
+      <div style={body}>
+        <div>
+          <Navbar menu={menu} setMenu={setMenu} />
+        </div>
+        <div>
+          <Headers />
+        </div>
       </div>
     </>
   );
