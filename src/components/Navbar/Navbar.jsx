@@ -75,7 +75,7 @@ function Navbar({ menu, setMenu }) {
               onClick={() => setMenu("home")}
               style={menu === "home" ? {} : null}
             >
-              <Link to="/home">StoneAngola</Link>
+              <Link to="/home">StoneAlgola</Link>
             </h1>
           </div>
           <ul style={navbarMenuStyle}>

@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 
 function CertificateComponent() {
   const [certificateId, setCertificateId] = useState("");
-  const [focused, setFocused] = useState(false); // Đặt useState trước khi sử dụng
+  const [focused, setFocused] = useState(false);
 
   const handleInputChange = (event) => {
     setCertificateId(event.target.value);
@@ -33,24 +33,24 @@ function CertificateComponent() {
     padding: "0 30px",
     lineHeight: "80px",
     borderRadius: "10px",
-    border: focused && certificateId ? "4px solid #66ff00" : "2px solid black",
+    border: focused ? "4px solid #66ff00" : "2px solid black",
     background: "transparent",
     transition: "0.1s ease",
     zIndex: "1111",
-    color: focused && certificateId ? "#66ff00" : "",
+    color: focused ? "#66ff00" : "",
   };
 
   const labelline = {
     position: "absolute",
-    fontSize: "1.6em", // Sửa cú pháp fontSize
-    color: "#f0ffff" && focused && certificateId ? "#66ff00" : "black",
+    fontSize: "1.6em",
+    color: focused ? "#66ff00" : "black",
     padding: "0 20px",
     margin: "2px 15px",
     transition: "0.2s ease",
-    height: focused && certificateId ? "30px" : "",
-    lineHeight: focused && certificateId ? "30px" : "",
+    height: focused || certificateId ? "30px" : "",
+    lineHeight: focused || certificateId ? "30px" : "",
     transform:
-      focused && certificateId ? "translate(-15px, -16px) scale(0.88)" : "",
+      focused || certificateId ? "translate(-15px, -16px) scale(0.88)" : "",
     zIndex: "1111",
     backgroundColor: "#FAF6F0",
   };
@@ -69,7 +69,7 @@ function CertificateComponent() {
               height: "45px",
               width: "650px",
             }}
-            className={`entryarea ${focused && certificateId ? "focused" : ""}`}
+            className={`entryarea ${focused ? "focused" : ""}`}
           >
             <input
               type="text"

@@ -11,6 +11,7 @@ import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./components/AuthContext/AuthContext";
+import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <>
@@ -29,6 +30,7 @@ function App() {
             </Routes>
           </Router>
         </div>
+        <Footer />
       </AuthProvider>
     </>
   );

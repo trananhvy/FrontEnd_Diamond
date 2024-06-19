@@ -112,7 +112,12 @@ function Login({ setShowLogin, handleSuccessfulLogin }) {
             />
           </div>
           <button style={button}>
-            {currentState === "Sign Up" ? "Login" : "Sign Up"}
+            {currentState === "Sign Up" ? "Sign Up" : "Login"}
+          </button>
+          <button style={button}>
+            {currentState === "Sign Up"
+              ? "Sign Up"
+              : "Login with Google Account"}
           </button>
           <div
             className="login-popup-condition"
