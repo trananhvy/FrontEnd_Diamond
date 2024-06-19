@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Button from "react-bootstrap/Button";
 import Login from "../../components/Login/Login";
-
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 function Navbar({ menu, setMenu }) {
   const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleLoginClick = () => {
     setShowLogin(true); // Show the Login popup
@@ -116,24 +120,8 @@ function Navbar({ menu, setMenu }) {
               <Link to="/blogs">BLOGS</Link>
             </li>
           </ul>
-          <div>
-            {isLoggedIn ? (
-              <Button type="submit" onClick={handleLogoutClick}>
-                Logout
-              </Button>
-            ) : (
-              <Button type="submit" onClick={handleLoginClick}>
-                Login
-              </Button>
-            )}
-          </div>
+          <Login />
         </div>
-        {showLogin && (
-          <Login
-            setShowLogin={setShowLogin}
-            handleSuccessfulLogin={handleSuccessfulLogin}
-          />
-        )}
       </div>
     </>
   );

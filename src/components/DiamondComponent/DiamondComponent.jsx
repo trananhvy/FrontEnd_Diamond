@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 // Define the constant list of diamonds with images
 const DIAMOND_LIST = [
@@ -7,6 +8,8 @@ const DIAMOND_LIST = [
     name: "Round Cut",
     carat: 1.0,
     img: "src/assets/1.avif",
+    detail:
+      "The round cut diamond, as the name suggests, is cut into a round shape with 58 facets, or flat polished surfaces, that are carefully positioned to maximize the stone's brilliance and fire. These facets are strategically placed to allow light to enter the diamond, reflect off the internal surfaces, and then refract back out, creating a dazzling display of brilliance.",
   },
   {
     id: 2,
@@ -40,7 +43,7 @@ const DIAMOND_LIST = [
   },
   {
     id: 7,
-    name: "Assher Cut",
+    name: "Asscher Cut",
     carat: 1.3,
     img: "src/assets/6.avif",
   },
@@ -115,7 +118,12 @@ const styles = {
   },
 };
 
-function DiamondComponent({ category, setCategory }) {
+export function DiamondComponent() {
+  const [category, setCategory] = useState(null);
+
+  // If category is null, default to the first element's name
+  const selectedCategory = category || DIAMOND_LIST[0].name;
+
   return (
     <div>
       <div style={styles.diamondMenu}>
@@ -136,21 +144,44 @@ function DiamondComponent({ category, setCategory }) {
                   alt={item.name}
                   style={{
                     ...styles.diamondImage,
-                    ...(category === item.name ? styles.active : {}),
+                    ...(selectedCategory === item.name ? styles.active : {}),
                   }}
                   onClick={() =>
                     setCategory((prev) =>
-                      prev === item.name ? "All" : item.name
+                      prev === item.name ? DIAMOND_LIST[0].name : item.name
                     )
                   }
                 />
-                <h2>{item.name}</h2>
+                <h2>
+                  <Link to="/search">{item.name}</Link>
+                </h2>
                 <p>Carat: {item.carat}</p>
               </div>
             ))}
           </div>
           <hr style={styles.hr} />
         </div>
+      </div>
+      <div>
+        {selectedCategory && (
+          <div>
+            <h2>Details</h2>
+            {DIAMOND_LIST.filter((item) => item.name === selectedCategory).map(
+              (item) => (
+                <div key={item.id}>
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    style={{ width: "200px" }}
+                  />
+                  <p>Name: {item.name}</p>
+                  <p>Carat: {item.carat}</p>
+                  <p>Detail: {item.detail}</p>
+                </div>
+              )
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

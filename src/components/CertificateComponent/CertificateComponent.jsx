@@ -36,7 +36,7 @@ function CertificateComponent() {
     border: focused ? "4px solid #66ff00" : "2px solid black",
     background: "transparent",
     transition: "0.1s ease",
-    zIndex: "1111",
+    zIndex: "2",
     color: focused ? "#66ff00" : "",
   };
 
@@ -51,7 +51,7 @@ function CertificateComponent() {
     lineHeight: focused || certificateId ? "30px" : "",
     transform:
       focused || certificateId ? "translate(-15px, -16px) scale(0.88)" : "",
-    zIndex: "1111",
+    zIndex: "2",
     backgroundColor: "#FAF6F0",
   };
 

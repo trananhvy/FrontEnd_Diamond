@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { IoIosClose } from "react-icons/io";
-function Login({ setShowLogin, handleSuccessfulLogin }) {
-  const [currentState, setCurrentState] = useState("Login");
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function Login() {
+  const [show, setShow] = useState(false);
+  const [currentState, setCurrentState] = useState("Sign In");
 
   const handleLogoutClick = () => {
     setShowLogin(false); // Close the Login popup
@@ -14,142 +19,138 @@ function Login({ setShowLogin, handleSuccessfulLogin }) {
     handleSuccessfulLogin();
   };
 
-  const test = {
-    marginTop: "500px",
-  };
-  const loginPopup = {
-    position: "absolute",
-    zIndex: "1",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#00000090",
-    display: "grid",
-  };
-  const loginPopupContainer = {
-    placeSelf: "center",
-    width: "max(23vw,330px)",
-    color: "#808080",
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "column",
-    gap: "25px",
-    padding: "25px 30px",
-    borderRadius: "8px",
-    fontSize: "15px",
-    Animation: "fadeIn 0.5s",
-  };
-  const logInPopUpTitle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    color: "black",
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const close = {
     width: "50px",
     cursor: "pointer",
-  };
-  const logInPopUpInputs = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
   };
   const inputStyle = {
     outLine: "none",
     border: "1px solid #c9c9c9",
     padding: "10px",
     borderRadius: "4px",
+    marginRight: "1px",
+    width: "100%",
+    marginTop: "15px",
   };
-  const button = {
-    border: "none",
-    padding: "10px",
-    borderRadius: "4px",
-    color: "White",
-    backgroundColor: "grey",
-    fontSize: "15px",
-    cursot: "pointer",
-  };
-  const logInPopUpInputCondition = {
+  const loginPopup = {
     display: "flex",
-    alignItems: "start",
-    gap: "8px",
-    marginTop: "-15px",
-  };
-  const input2 = {
-    marginTop: "5px",
+    width: "100%",
+    height: "100%",
   };
   return (
     <>
-      <div className="login-popup" style={loginPopup}>
-        <form
-          className="login-popup-container"
-          onSubmit={handleFormSubmit}
-          style={loginPopupContainer}
-        >
-          <div className="login-popup-title" style={logInPopUpTitle}>
-            <h2>{currentState}</h2>
-            <IoIosClose style={close} onClick={() => setShowLogin(false)} />
-          </div>
-          <div className="login-popup-inputs" style={logInPopUpInputs}>
-            {currentState === "Login" ? null : (
-              <input
-                type="text"
-                placeholder="Your name"
-                required
-                style={inputStyle}
-              />
-            )}
-            <input
-              type="email"
-              placeholder="Your email"
-              required
-              style={inputStyle}
-            />
-            <input
-              type="password"
-              placeholder="Your password"
-              required
-              style={inputStyle}
-            />
-          </div>
-          <button style={button}>
-            {currentState === "Sign Up" ? "Sign Up" : "Login"}
-          </button>
-          <button style={button}>
-            {currentState === "Sign Up"
-              ? "Sign Up"
-              : "Login with Google Account"}
-          </button>
-          <div
-            className="login-popup-condition"
-            style={logInPopUpInputCondition}
-          >
-            <input type="checkbox" required />
-            <p>By continuing, I agree to the terms of use & privacy policy.</p>
-          </div>
-          <div style={{ margin: "-20px 27px 0px 1px" }}>
-            {currentState === "Login" ? (
-              <p>
-                Create a new account?{" "}
-                <span
-                  onClick={() => setCurrentState("Sign Up")}
-                  style={{ color: "blue" }}
+      <div>
+        <Button variant="primary" onClick={handleShow}>
+          Sign In
+        </Button>
+
+        <Modal show={show} onHide={handleClose} style={{ marginTop: "150px" }}>
+          <Modal.Header closeButton>
+            <h1>{currentState}</h1>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={loginPopup}>
+              <form>
+                <div>
+                  {currentState === "Sign In" ? null : (
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      required
+                      style={inputStyle}
+                    />
+                  )}
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    required
+                    style={inputStyle}
+                  />
+                  <input
+                    type="password"
+                    placeholder="Your password"
+                    required
+                    style={inputStyle}
+                  />
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                <input
+                  type="checkbox"
+                  required
+                  style={{ marginTop: "-14px", marginRight: "8px" }}
+                />
+                <p>
+                  By continuing, I agree to the terms of use & privacy policy.
+                </p>
+              </div>
+              <div>
+                {currentState === "Sign In" ? (
+                  <p>
+                    Create a new account?{" "}
+                    <span
+                      onClick={() => setCurrentState("Sign Up")}
+                      style={{ color: "blue" }}
+                    >
+                      Click here
+                    </span>
+                  </p>
+                ) : (
+                  <p>
+                    Already have an account?{" "}
+                    <span
+                      onClick={() => setCurrentState("Sign In")}
+                      style={{ color: "blue" }}
+                    >
+                      Login here
+                    </span>
+                  </p>
+                )}
+              </div>
+              <div>
+                <Button
+                  variant="primary"
+                  onClick={handleClose}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    borderRadius: "10px",
+                  }}
                 >
-                  Click here
-                </span>
-              </p>
-            ) : (
-              <p>
-                Already have an account?{" "}
-                <span
-                  onClick={() => setCurrentState("Login")}
-                  style={{ color: "blue" }}
-                >
-                  Login here
-                </span>
-              </p>
-            )}
-          </div>
-        </form>
+                  {currentState === "Sign Up" ? "Sign Up" : "Sign In"}
+                </Button>
+              </div>
+              {currentState === "Sign Up" ? null : (
+                <div>
+                  <Button
+                    variant="primary"
+                    onClick={handleClose}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      marginTop: "15px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    Sign In with Google Account
+                  </Button>
+                </div>
+              )}
+            </div>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

@@ -1,14 +1,54 @@
 import React from "react";
-
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 function Footer() {
-  const footer = {};
+  const footer = {
+    color: "#d9d9d9",
+    backgroundColor: "#323232",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "20px",
+    padding: "20px 8vw",
+    paddingTop: "80px",
+  };
 
+  const footerContent = {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "2fr 1fr 1fr",
+    gap: "80px",
+  };
+  const footerContentRight = {
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "start",
+    gap: "20px",
+  };
+  const footerContentCenter = {
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "start",
+    gap: "20px",
+  };
+  const footerContentLeft = {
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "start",
+    gap: "20px",
+  };
+  const liStyle = {
+    listStyle: "none",
+    marginBottom: "10px,",
+  };
+  const logo = {
+    width: "40px",
+    marginRight: "15px",
+  };
   return (
     <>
-      <div className="footer" id="footer">
-        <div className="footer-content">
-          \
-          <div className="footer-content-left">
+      <div className="footer" id="footer" style={footer}>
+        <div className="footer-content" style={footerContent}>
+          <div className="footer-content-left" style={footerContentLeft}>
             <h2>StoneAlogola</h2>
             <p>
               Welcome to Diamond Valuation Store, the premier destination for
@@ -18,32 +58,29 @@ function Footer() {
               insure, or simply gain a better understanding of your diamond's
               worth, we are here to assist you every step of the way.
             </p>
-          </div>
-          <div className="footer-content-center">
-            <div>
-              <h2>COMPANY</h2>
-              <ul>
-                <li>HOME</li>
-                <li>ABOUT US</li>
-                <li>SERVICE</li>
-                <li>PRIVACY POLICY</li>
-              </ul>
-            </div>
-            <div>
-              <h2>FEATURES</h2>
-              <ul>
-                <li>PRICE CALCULATOR</li>
-                <li>SEARCH</li>
-                <li>LAB GROWN DIAMOND</li>
-                <li>PRICE & QUALITY CHECK</li>
-              </ul>
+            <div className="footer-social-icons">
+              <FaFacebook style={logo} />
+              <FaInstagram style={logo} />
             </div>
           </div>
-          <div className="footer-content-right">
-            <h2>CONTACT US</h2>
+          <div className="footer-content-center" style={footerContentCenter}>
+            <div style={{ display: "flex" }}>
+              <div>
+                <h2 style={{ marginLeft: "30px" }}>FEATURES</h2>
+                <ul>
+                  <li style={liStyle}>PRICE CALCULATOR</li>
+                  <li style={liStyle}>SEARCH</li>
+                  <li style={liStyle}>LAB GROWN DIAMOND</li>
+                  <li style={liStyle}>PRICE & QUALITY CHECK</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="footer-content-right" style={footerContentRight}>
+            <h2 style={{ marginLeft: "30px" }}>CONTACT US</h2>
             <ul>
-              <li>+1-212-345-567</li>
-              <li>diamondalgola@gmail.com</li>
+              <li style={liStyle}>+1-212-345-567</li>
+              <li style={liStyle}>diamondalgola@gmail.com</li>
             </ul>
           </div>
         </div>

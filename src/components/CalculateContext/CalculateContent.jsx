@@ -226,7 +226,7 @@ function CalculateContent() {
             type="range"
             min={0.3}
             max={5.0}
-            step={0.1}
+            step={0.01}
             value={carat}
             onChange={handleCaratChange}
             style={{
