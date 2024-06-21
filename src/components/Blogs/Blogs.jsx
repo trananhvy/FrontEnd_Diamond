@@ -5,6 +5,7 @@ import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 function Blogs() {
   const [menu, setMenu] = useState("blogs");
+  // prop driling
   return (
     <>
       <div>

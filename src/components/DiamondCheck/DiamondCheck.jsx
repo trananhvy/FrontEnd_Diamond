@@ -5,7 +5,7 @@ import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
 import CertificateComponent from "../../components/CertificateComponent/CertificateComponent";
 import Footer from "../../components/Footer/Footer";
-import { UserContext } from "../../components/CalculateContext/CalculateContent";
+import { UserContext } from "../CalculateContext/CalculateContent1";
 
 function DiamondCheck() {
   const [menu, setMenu] = useState("diamondcheck");

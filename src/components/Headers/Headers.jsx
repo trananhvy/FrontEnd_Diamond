@@ -7,8 +7,7 @@ function Header() {
     marginTop: "140px",
     height: "30vw",
     margin: "103px 40px",
-    background:
-      "url('src/assets/1000_F_784587516_qlrZBqw1kT4Mv5bR1JRX6Mmwi8wBD1X6.jpg')",
+    background: "url('src/assets/lab-grown-diamonds-malaysia-1024x597.jpeg')",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "50% 50%", // Đặt background ở trung tâm

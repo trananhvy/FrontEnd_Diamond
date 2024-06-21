@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "../components/CalculateContext/CalculateContent";
+import { UserContext } from "./CalculateContext/CalculateContent1";
 
 const DemoPage = () => {
   const {
@@ -12,7 +12,8 @@ const DemoPage = () => {
 
   return (
     <div>
-      <h2>Demo Page</h2>
+      <h2>Fair Price Estimate</h2>
+      <p>$4980</p>
       <p>Selected Origin: {selectedOrigin}</p>
       <p>Selected Shape: {selectedShape}</p>
       <p>Selected Clarity: {selectedClarity}</p>

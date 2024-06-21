@@ -16,10 +16,11 @@ function Home() {
     <>
       <div style={body}>
         <Navbar menu={menu} setMenu={setMenu} />
-        <div>
-          <Headers />
-        </div>
-
+      </div>
+      <div>
+        <Headers />
+      </div>
+      <div>
         <DiamondComponent category={category} setCategory={setCategory} />
       </div>
     </>

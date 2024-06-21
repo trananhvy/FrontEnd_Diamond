@@ -2,127 +2,158 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Button from "react-bootstrap/Button";
-import Login from "../../components/Login/Login";
 import Modal from "react-bootstrap/Modal";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import "bootstrap/dist/css/bootstrap.min.css";
+import styled from "styled-components";
+import Login from "../../components/Login/Login";
+
+const NavbarContainer = styled.div`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const NavbarBrand = styled.h1`
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+`;
+
+const NavbarMenu = styled.div`
+  display: flex;
+  gap: 20px;
+  color: #fff;
+  font-size: 20px;
+`;
+
+const StyledDropdownButton = styled(DropdownButton)`
+  & > .btn-primary {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 100%;
+    font-weight: 600;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
+      border: none;
+      color: #ffd700;
+    }
+  }
+
+  & > .dropdown-menu {
+    background-color: #444;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  & .dropdown-item {
+    color: #fff;
+    &:hover {
+      background-color: #555;
+    }
+  }
+`;
+
+const AuthButton = styled(Button)`
+  background-color: #49557e;
+  border: none;
+  &:hover {
+    background-color: #6a75a3;
+  }
+`;
+
 function Navbar({ menu, setMenu }) {
   const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  const handleLoginClick = () => {
-    setShowLogin(true); // Show the Login popup
-  };
-
+  const handleLoginClick = () => setShowLogin(true);
   const handleLogoutClick = () => {
-    setShowLogin(false); // Close the Login popup if open
+    setShowLogin(false);
     signOut();
   };
 
   const handleSuccessfulLogin = () => {
-    setShowLogin(false); // Close the Login popup on successful login
-    // Optionally, you can perform additional actions here after login
-    signIn(); // Call signIn from AuthContext or perform other actions
-  };
-
-  const bodyStyle = {
-    margin: 0,
-    padding: 0,
-  };
-
-  const navbarStyle = {
-    width: "100%",
-    padding: "20px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#EEEEEE",
-    position: "fixed",
-    top: 0,
-    left: 0,
-    zIndex: 9999,
-  };
-
-  const navbarMenuStyle = {
-    display: "flex",
-    listStyle: "none",
-    gap: "20px",
-    color: "#49557e",
-    fontSize: "20px",
-    marginRight: "185px",
-    marginTop: "10px",
-  };
-
-  const activeStyle = {
-    paddingTop: "2px",
-    borderBottom: "2px solid #49557e",
-  };
-
-  const liStyle = {
-    marginLeft: "30px",
-    cursor: "pointer",
-    fontSize: "100%",
-    fontWeight: 600,
-    gap: "20px",
-    marginRight: "10px",
-    margin: "0px 20px 10px 20px",
+    setShowLogin(false);
+    signIn();
   };
 
   return (
     <>
-      <div style={bodyStyle}>
-        <div style={navbarStyle}>
-          <div className="name">
-            <h1
-              onClick={() => setMenu("home")}
-              style={menu === "home" ? {} : null}
-            >
-              <Link to="/home">StoneAlgola</Link>
-            </h1>
-          </div>
-          <ul style={navbarMenuStyle}>
-            <li
-              onClick={() => setMenu("search")}
-              style={{ ...liStyle, ...(menu === "search" ? activeStyle : {}) }}
-            >
-              <Link to="/search">SEARCH</Link>
-            </li>
-            <li
-              onClick={() => setMenu("diamondcheck")}
-              style={{
-                ...liStyle,
-                ...(menu === "diamondcheck" ? activeStyle : {}),
-              }}
-            >
-              <Link to="/diamondcheck">DIAMOND CHECK</Link>
-            </li>
-            <li
-              onClick={() => setMenu("calculate")}
-              style={{
-                ...liStyle,
-                ...(menu === "calculate" ? activeStyle : {}),
-              }}
-            >
-              <Link to="/calculate">CALCULATE</Link>
-            </li>
-            <li
-              onClick={() => setMenu("prices")}
-              style={{ ...liStyle, ...(menu === "prices" ? activeStyle : {}) }}
-            >
-              <Link to="/prices">PRICE</Link>
-            </li>
-            <li
-              onClick={() => setMenu("blogs")}
-              style={{ ...liStyle, ...(menu === "blogs" ? activeStyle : {}) }}
-            >
-              <Link to="/blogs">BLOGS</Link>
-            </li>
-          </ul>
-          <Login />
-        </div>
-      </div>
+      <NavbarContainer>
+        <NavbarBrand onClick={() => setMenu("home")}>
+          <Link to="/home" style={{ color: "inherit", textDecoration: "none" }}>
+            StoneAlgola
+          </Link>
+        </NavbarBrand>
+        <NavbarMenu>
+          <StyledDropdownButton id="education-dropdown" title="EDUCATION">
+            <Dropdown.Item as={Link} to="/overviewedu">
+              Overview
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/education/topic2">
+              Introduce Natural Diamond
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/education/topic2">
+              Introduce Lab Diamond
+            </Dropdown.Item>
+          </StyledDropdownButton>
+
+          <StyledDropdownButton
+            id="diamondcheck-dropdown"
+            title="DIAMOND CHECK"
+          >
+            <Dropdown.Item as={Link} to="/overviewcheck">
+              OVERVIEW
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/diamondCheck">
+              Diamond Check
+            </Dropdown.Item>
+          </StyledDropdownButton>
+
+          <StyledDropdownButton id="calculate-dropdown" title="VALUATION">
+            <Dropdown.Item as={Link} to="/overviewval">
+              OVERVIEW
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/calculate">
+              Calculate
+            </Dropdown.Item>
+          </StyledDropdownButton>
+
+          <StyledDropdownButton id="services-dropdown" title="SERVICES">
+            <Dropdown.Item as={Link} to="/overviewser">
+              Overview
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/services/type2">
+              NATURAL DIAMONDS
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/serviceslab">
+              LABORATORY-GROWN DIAMONDS
+            </Dropdown.Item>
+          </StyledDropdownButton>
+
+          <StyledDropdownButton id="blogs-dropdown" title="BLOGS">
+            <Dropdown.Item as={Link} to="/blogs/category1">
+              Category 1
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/blogs/category2">
+              Category 2
+            </Dropdown.Item>
+          </StyledDropdownButton>
+        </NavbarMenu>
+        <Login />
+      </NavbarContainer>
     </>
   );
 }

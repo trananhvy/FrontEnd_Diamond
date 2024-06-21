@@ -1,23 +1,29 @@
-import React, { useState, createContext } from "react";
+import { useState, createContext } from "react";
 import styled from "styled-components";
 import DemoPage from "../DemoPage";
-
-const StyledButton = styled.button`
+import Navbar from "../../components/Navbar/Navbar";
+const StyledButton = styled.button.attrs((props) => ({
+  active: props.active ? "true" : undefined,
+}))`
   padding: 10px 22px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: ${({ active }) => (active ? "green" : "#f9f9f9")};
+  background-color: ${({ active }) =>
+    active === "true" ? "green" : "#f9f9f9"};
   cursor: pointer;
   transition: background-color 0.3s;
 `;
 
-const StyledWideButton = styled.button`
+const StyledWideButton = styled.button.attrs((props) => ({
+  active: props.active ? "true" : undefined,
+}))`
   padding: 10px 55px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: ${({ active }) => (active ? "green" : "#f9f9f9")};
+  background-color: ${({ active }) =>
+    active === "true" ? "green" : "#f9f9f9"};
   cursor: pointer;
   transition: background-color 0.3s;
 
@@ -28,7 +34,7 @@ const StyledWideButton = styled.button`
 
 export const UserContext = createContext();
 
-function CalculateContent() {
+function CalculateContentForLab() {
   const bodyStyle = {
     margin: "109px 28px 8px 189px",
     padding: "20px",
@@ -64,7 +70,7 @@ function CalculateContent() {
     gap: "5px",
   };
 
-  const [selectedOrigin, setSelectedOrigin] = useState("NATURAL");
+  const [selectedOrigin, setSelectedOrigin] = useState("LAB GROWN");
   const [selectedShape, setSelectedShape] = useState(null);
   const [selectedClarity, setSelectedClarity] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -104,17 +110,6 @@ function CalculateContent() {
         <div style={sectionStyle}>
           <h3>DIAMOND ORIGIN</h3>
           <div style={buttonContainerStyle2}>
-            <div>
-              <button
-                className={`btn${
-                  selectedOrigin === "NATURAL" ? " active" : ""
-                }`}
-                style={{ width: "100%" }}
-                onClick={() => handleOriginButtonClick("NATURAL")}
-              >
-                NATURAL
-              </button>
-            </div>
             <div>
               <button
                 className={`btn${
@@ -389,4 +384,4 @@ function CalculateContent() {
   );
 }
 
-export default CalculateContent;
+export default CalculateContentForLab;
