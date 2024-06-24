@@ -1,68 +1,75 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
-function Header() {
+const HeaderContainer = styled.div`
+  margin: ${(props) =>
+    props.isLoggedIn
+      ? "3px 40px"
+      : "103px 40px"}; // Điều chỉnh giá trị margin dựa trên isLoggedIn
+  height: 30vw;
+  background: url("src/assets/lab-grown-diamonds-malaysia-1024x597.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  border-radius: 50px;
+`;
+
+const HeaderContents = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1.5vw;
+  max-width: 50%;
+  bottom: 10%;
+  left: 6vw;
+`;
+
+const HeaderText = styled.h2`
+  font-weight: 500;
+  color: #49557e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: color 0.3s ease-in-out;
+`;
+
+const Paragraph = styled.p`
+  color: #49557e;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: color 0.3s ease-in-out;
+`;
+
+const Button = styled.button`
+  border: none;
+  color: #747474;
+  font-weight: 500;
+  padding: 1vw 2.3vw;
+  background-color: #fff;
+  border-radius: 35px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &.button-clicked {
+    background-color: #eee;
+  }
+`;
+
+function Header({ isLoggedIn }) {
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  const header = {
-    marginTop: "140px",
-    height: "30vw",
-    margin: "103px 40px",
-    background: "url('src/assets/lab-grown-diamonds-malaysia-1024x597.jpeg')",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "50% 50%", // Đặt background ở trung tâm
-    overflow: "hidden",
-    display: "flex",
-    position: "relative",
-    borderRadius: "50px", // Viền tròn
-  };
-
-  const headerContents = {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "start",
-    gap: "1.5vw",
-    maxWidth: "50%",
-    bottom: "10%",
-    left: "6vw",
-  };
-
-  const a = {
-    fontWeight: "500",
-    color: "#49557e",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-    transition: "color 0.3s ease-in-out",
-  };
-
-  const p = {
-    color: "#49557e",
-    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-    transition: "color 0.3s ease-in-out",
-  };
-
-  const button = {
-    border: "none",
-    color: "#747474",
-    fontWeight: "500",
-    padding: "1vw 2.3vw",
-    backgroundColor: "#fff",
-    borderRadius: "35px",
-    transition: "all 0.3s ease-in-out",
-    cursor: "pointer",
-  };
-
-  function handleButtonClick() {
+  const handleButtonClick = () => {
     setButtonClicked(true);
-  }
+  };
 
   return (
-    <div style={header}>
-      <div style={headerContents}>
-        <h2 style={a}>Where Diamond Value Begins</h2>
-        <p style={p}>
+    <HeaderContainer isLoggedIn={isLoggedIn}>
+      <HeaderContents>
+        <HeaderText>Where Diamond Value Begins</HeaderText>
+        <Paragraph>
           "Where Diamond Value Begins" encapsulates the essence of our
           commitment to providing unparalleled diamond valuation services. At
           our platform, we blend expertise with cutting-edge technology to offer
@@ -73,16 +80,15 @@ function Header() {
           piece, our comprehensive assessments ensure that you have all the
           information you need. Trust us to illuminate the true worth of your
           diamonds, setting the foundation for value that shines through.
-        </p>
-        <button
-          style={button}
+        </Paragraph>
+        <Button
           className={buttonClicked ? "button-clicked" : ""}
           onClick={handleButtonClick}
         >
           View Diamond
-        </button>
-      </div>
-    </div>
+        </Button>
+      </HeaderContents>
+    </HeaderContainer>
   );
 }
 

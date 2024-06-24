@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 // Define the constant list of diamonds with images
 const DIAMOND_LIST = [
@@ -48,93 +48,128 @@ const DIAMOND_LIST = [
     name: "Marquise Cut",
     carat: 1.3,
     img: "src/assets/6.avif",
+    detail:
+      "The marquise cut diamond is a distinctive and elegant diamond shape, characterized by its elongated, boat-like silhouette with pointed ends. This sophisticated shape combines the brilliance of a classic cut with a unique and timeless charm, making it a favored choice for engagement rings and fine jewelry.",
   },
   {
     id: 7,
     name: "Asscher Cut",
     carat: 1.3,
     img: "src/assets/8.avif",
+    detail:
+      "The Asscher cut diamond features a step-cut faceting pattern with large, open facets that create a mesmerizing hall-of-mirrors effect. This design emphasizes clarity and luster, resulting in a captivating display of light and brilliance. The cut's high crown and deep pavilion add depth and dimension, enhancing its visual appeal.",
   },
   {
     id: 8,
     name: "Heart Cut",
     carat: 1.3,
     img: "src/assets/6.avif",
+    detail:
+      "The heart cut diamond features a complex faceting pattern designed to maximize brilliance and fire, creating a stunning display of light. The shape is defined by its rounded lobes, a cleft at the top, and a pointed bottom, all of which must be meticulously crafted to achieve perfect symmetry and balance.",
   },
   {
     id: 9,
     name: "Princess Cut",
     carat: 1.3,
     img: "src/assets/6.avif",
+    detail:
+      "The princess cut diamond is a modern and elegant diamond shape, recognized for its square or rectangular form with sharp, uncut corners. This cut combines the brilliance of a round cut with a sleek, contemporary aesthetic, making it one of the most popular choices for engagement rings and fine jewelry.",
   },
 ];
 
-// Styles as JavaScript objects
-const styles = {
-  diamondComponent: {},
-  diamondMenu: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  diamondMenuH1: {
-    color: "#49557e",
-    fontSize: "36px",
-    fontWeight: "700",
-    marginLeft: "40px",
-  },
-  diamondMenuText: {
-    maxWidth: "60%",
-    color: "#808080",
-    marginLeft: "40px",
-  },
-  diamondMenuContainer: {
-    display: "flex",
-    alignItems: "center",
-    margin: "0 40px",
-    position: "relative",
-  },
-  diamondMenuList: {
-    display: "flex",
-    gap: "30px",
-    textAlign: "center",
-    margin: "20px 0",
-    overflowX: "scroll",
-    scrollBehavior: "smooth",
-    scrollbarWidth: "none", // For Firefox
-    msOverflowStyle: "none", // For Internet Explorer and Edge
-  },
-  diamondItem: {
-    display: "inline-block",
-    flexDirection: "column",
-    alignItems: "center",
-    minWidth: "200px",
-  },
-  diamondImage: {
-    width: "7.5vw",
-    minWidth: "80px",
-    cursor: "pointer",
-    borderRadius: "50%",
-    transition: "0.2s",
-  },
-  hr: {
-    margin: "10px 0px",
-    height: "2px",
-    backgroundColor: "#49557e",
-    border: "none",
-  },
-  active: {
-    border: "2px solid #49557e",
-    padding: "2px",
-  },
-  scrollButton: {
-    cursor: "pointer",
-    background: "none",
-    border: "none",
-    fontSize: "24px",
-    color: "#49557e",
-  },
-};
+// Styled components
+const DiamondMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const DiamondMenuH1 = styled.h1`
+  color: #49557e;
+  font-size: 36px;
+  font-weight: 700;
+  margin-left: 40px;
+`;
+
+const DiamondMenuText = styled.p`
+  max-width: 60%;
+  color: #808080;
+  margin-left: 40px;
+`;
+
+const DiamondMenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+  position: relative;
+`;
+
+const DiamondMenuList = styled.div`
+  display: flex;
+  gap: 30px;
+  text-align: center;
+  margin: 20px 0;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none; // For Firefox
+  ms-overflow-style: none; // For Internet Explorer and Edge
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const DiamondItem = styled.div`
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+`;
+
+const DiamondImage = styled.img`
+  width: 7.5vw;
+  min-width: 80px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.2s;
+  ${(props) => (props.active ? "border: 2px solid #49557e; padding: 2px;" : "")}
+`;
+
+const Hr = styled.hr`
+  margin: 10px 0px;
+  height: 2px;
+  background-color: #49557e;
+  border: none;
+`;
+
+const ScrollButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #49557e;
+`;
+
+const DiamondDetailContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const DiamondDetail = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+`;
+
+const DiamondDetailText = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+`;
+
+const DetailImage = styled.img`
+  width: 200px;
+  border-radius: 100px;
+`;
 
 export function DiamondComponent() {
   const [category, setCategory] = useState(null);
@@ -156,32 +191,26 @@ export function DiamondComponent() {
 
   return (
     <div>
-      <div style={styles.diamondMenu}>
-        <h1 style={styles.diamondMenuH1}>Diamond List</h1>
-        <p style={styles.diamondMenuText}>
+      <DiamondMenu>
+        <DiamondMenuH1>Diamond List</DiamondMenuH1>
+        <DiamondMenuText>
           A diamond is a gemstone that is prized for its brilliance and beauty.
           It is a transparent crystal made of carbon atoms arranged in a
           specific lattice structure. The most common shape for a cut diamond is
           the round brilliant, which features a circular outline and a large
           number of facets that maximize its sparkle and light reflection.
-        </p>
-        <div style={styles.diamondMenuContainer}>
-          <button
-            style={styles.scrollButton}
-            onClick={() => handleScroll("left")}
-          >
+        </DiamondMenuText>
+        <DiamondMenuContainer>
+          <ScrollButton onClick={() => handleScroll("left")}>
             {"<"}
-          </button>
-          <div ref={menuRef} style={styles.diamondMenuList}>
+          </ScrollButton>
+          <DiamondMenuList ref={menuRef}>
             {DIAMOND_LIST.map((item) => (
-              <div key={item.id} style={styles.diamondItem}>
-                <img
+              <DiamondItem key={item.id}>
+                <DiamondImage
                   src={item.img}
                   alt={item.name}
-                  style={{
-                    ...styles.diamondImage,
-                    ...(selectedCategory === item.name ? styles.active : {}),
-                  }}
+                  active={selectedCategory === item.name ? "true" : undefined} // Ensure active is a string
                   onClick={() =>
                     setCategory((prev) =>
                       prev === item.name ? DIAMOND_LIST[0].name : item.name
@@ -189,49 +218,31 @@ export function DiamondComponent() {
                   }
                 />
                 <h2>{item.name}</h2>
-              </div>
+              </DiamondItem>
             ))}
-          </div>
-          <button
-            style={styles.scrollButton}
-            onClick={() => handleScroll("right")}
-          >
+          </DiamondMenuList>
+          <ScrollButton onClick={() => handleScroll("right")}>
             {">"}
-          </button>
-        </div>
-        <hr style={styles.hr} />
-      </div>
+          </ScrollButton>
+        </DiamondMenuContainer>
+        <Hr />
+      </DiamondMenu>
       <div>
         {selectedCategory && (
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <DiamondDetailContainer>
             {DIAMOND_LIST.filter((item) => item.name === selectedCategory).map(
               (item) => (
-                <div
-                  key={item.id}
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <div style={{ marginRight: "20px" }}>
-                    <img
-                      src={item.img}
-                      alt={item.name}
-                      style={{ width: "200px", borderRadius: "100px" }}
-                    />
-                  </div>
+                <DiamondDetail Detail key={item.id}>
+                  <DetailImage src={item.img} alt={item.name} />
                   <div>
-                    <p style={{ fontWeight: "500", fontSize: "16px" }}>
-                      Name: {item.name}
-                    </p>
-                    <p style={{ fontWeight: "500", fontSize: "16px" }}>
-                      Carat: {item.carat}
-                    </p>
-                    <p style={{ fontWeight: "500", fontSize: "16px" }}>
-                      Detail: {item.detail}
-                    </p>
+                    <DiamondDetailText>Name: {item.name}</DiamondDetailText>
+                    <DiamondDetailText>Carat: {item.carat}</DiamondDetailText>
+                    <DiamondDetailText>Detail: {item.detail}</DiamondDetailText>
                   </div>
-                </div>
+                </DiamondDetail>
               )
             )}
-          </div>
+          </DiamondDetailContainer>
         )}
       </div>
     </div>

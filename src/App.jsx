@@ -16,6 +16,9 @@ import OverViewForService from "./components/Overview/OverviewForService";
 import OverviewForValuation from "./components/Overview/OverviewForValuation";
 import OverviewForGIACertificateCheck from "./components/Overview/OverviewForCheck";
 import ServiceForLabDiamond from "./components/ServiceContent/ServiceForLabDiamond";
+import ServiceContent from "./components/ServiceContent/ServiceContent";
+import IntroNaturalDiamond from "./components/Education/IntroNaturalDiamond";
+import IntroLabDiamond from "./components/Education/IntroLabDiamond";
 function App() {
   return (
     <>
@@ -35,8 +38,10 @@ function App() {
               <Route path="overviewedu" element={<OverviewForEducation />} />
               <Route path="overviewser" element={<OverViewForService />} />
               <Route path="overviewval" element={<OverviewForValuation />} />
+              <Route path="intronatural" element={<IntroNaturalDiamond />} />
+              <Route path="introlab" element={<IntroLabDiamond />} />
               <Route path="services" element={<Services />} />
-              <Route path="serviceslab" element={<ServiceForLabDiamond />} />
+              <Route path="serviceslab" element={<ServiceContent />} />
               <Route path="blogs" element={<Blogs />} />
               <Route path="calculate" element={<Calculate />} />
               <Route path="diamondcheck" element={<DiamondCheck />} />

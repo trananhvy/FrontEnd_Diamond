@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Button from "react-bootstrap/Button";
@@ -14,7 +14,7 @@ const NavbarContainer = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Căn giữa các phần tử */
   background-color: #333;
   position: fixed;
   top: 0;
@@ -74,7 +74,11 @@ const AuthButton = styled(Button)`
   }
 `;
 
-function Navbar({ menu, setMenu }) {
+const StyledLogin = styled(Login)`
+  margin-right: 20px; /* Điều chỉnh khoảng cách với các dropdown */
+`;
+
+function Navbar({ setMenu }) {
   const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -102,10 +106,10 @@ function Navbar({ menu, setMenu }) {
             <Dropdown.Item as={Link} to="/overviewedu">
               Overview
             </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/education/topic2">
+            <Dropdown.Item as={Link} to="/intronatural">
               Introduce Natural Diamond
             </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/education/topic2">
+            <Dropdown.Item as={Link} to="/introlab">
               Introduce Lab Diamond
             </Dropdown.Item>
           </StyledDropdownButton>
@@ -133,26 +137,20 @@ function Navbar({ menu, setMenu }) {
 
           <StyledDropdownButton id="services-dropdown" title="SERVICES">
             <Dropdown.Item as={Link} to="/overviewser">
-              Overview
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/services/type2">
-              NATURAL DIAMONDS
+              OVERVIEW
             </Dropdown.Item>
             <Dropdown.Item as={Link} to="/serviceslab">
-              LABORATORY-GROWN DIAMONDS
+              BOOKING
             </Dropdown.Item>
           </StyledDropdownButton>
 
           <StyledDropdownButton id="blogs-dropdown" title="BLOGS">
-            <Dropdown.Item as={Link} to="/blogs/category1">
-              Category 1
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/blogs/category2">
-              Category 2
+            <Dropdown.Item as={Link} to="/blogs">
+              BLOGS
             </Dropdown.Item>
           </StyledDropdownButton>
         </NavbarMenu>
-        <Login />
+        <StyledLogin />
       </NavbarContainer>
     </>
   );

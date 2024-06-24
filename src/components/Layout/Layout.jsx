@@ -1,104 +1,99 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import styled from "styled-components";
 import Headers from "../../components/Headers/Headers";
+
+const BodyWrapper = styled.div`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const NavbarMenu = styled.ul`
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  color: #49557e;
+  font-size: 20px;
+  margin-right: 350px;
+  margin-top: 10px;
+`;
+
+const ActiveMenuItem = styled.li`
+  padding-top: 2px;
+  border-bottom: 2px solid #49557e;
+`;
+
+const Logo = styled.div`
+  width: 150px;
+`;
+
+const Name = styled.div`
+  padding-left: 50px;
+  color: #49557e;
+  font-weight: 700;
+  font-size: 100%;
+`;
+
+const MenuItem = styled.li`
+  margin-left: 80px;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 600;
+`;
 
 function Layout() {
   const [menu, setMenu] = useState("home");
-  const bodyStyle = {
-    margin: 0,
-    padding: 0,
-  };
-  const navbarStyle = {
-    width: "100%",
-    padding: "20px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  };
-  const navbarMenuStyle = {
-    display: "flex",
-    listStyle: "none",
-    gap: "20px",
-    color: "#49557e",
-    fontSize: "20px",
-    marginRight: "350px",
-    marginTop: "10px",
-  };
-  const activeStyle = {
-    paddingTop: "2px",
-    borderBottom: "2px solid #49557e",
-  };
-  const logoStyle = {
-    width: "150px",
-  };
-  const searchIconStyle = {
-    position: "relative",
-  };
-  const nameStyle = {
-    paddingLeft: "50px",
-    color: "#49557e",
-    fontWeight: "700",
-    fontSize: "100%",
-  };
-  const liStyle = {
-    marginLeft: "80px",
-    cursor: "pointer",
-    fontSize: "100%",
-    fontWeight: 600,
-  };
+
   return (
     <>
-      <div style={{ ...bodyStyle, ...navbarStyle }}>
-        <div className="name">
-          <h1
-            onClick={() => setMenu("home")}
-            style={menu === "home" ? {} : null}
-          >
-            <Link className="" to="/home">
-              StoneAngola
-            </Link>
+      <BodyWrapper>
+        <Name onClick={() => setMenu("home")}>
+          <h1>
+            <Link to="/home">StoneAngola</Link>
           </h1>
-        </div>
-        <ul style={navbarMenuStyle}>
-          <li
+        </Name>
+        <NavbarMenu>
+          <MenuItem
             onClick={() => setMenu("search")}
-            style={{ ...liStyle, ...(menu === "search" ? activeStyle : {}) }}
+            as={menu === "search" ? ActiveMenuItem : MenuItem}
           >
             <Link to="/search">SEARCH</Link>
-          </li>
-          <li
+          </MenuItem>
+          <MenuItem
             onClick={() => setMenu("diamondcheck")}
-            style={{
-              ...liStyle,
-              ...(menu === "diamondcheck" ? activeStyle : {}),
-            }}
+            as={menu === "diamondcheck" ? ActiveMenuItem : MenuItem}
           >
             <Link to="/diamondcheck">DIAMOND CHECK</Link>
-          </li>
-          <li
+          </MenuItem>
+          <MenuItem
             onClick={() => setMenu("calculate")}
-            style={{ ...liStyle, ...(menu === "calculate" ? activeStyle : {}) }}
+            as={menu === "calculate" ? ActiveMenuItem : MenuItem}
           >
             <Link to="/calculate">CALCULATE</Link>
-          </li>
-          <li
+          </MenuItem>
+          <MenuItem
             onClick={() => setMenu("prices")}
-            style={{ ...liStyle, ...(menu === "prices" ? activeStyle : {}) }}
+            as={menu === "prices" ? ActiveMenuItem : MenuItem}
           >
             <Link to="/prices">PRICE</Link>
-          </li>
-          <li
+          </MenuItem>
+          <MenuItem
             onClick={() => setMenu("blogs")}
-            style={{ ...liStyle, ...(menu === "blogs" ? activeStyle : {}) }}
+            as={menu === "blogs" ? ActiveMenuItem : MenuItem}
           >
             <Link to="/blogs">BLOGS</Link>
-          </li>
-        </ul>
+          </MenuItem>
+        </NavbarMenu>
         <div>
           <Button type="submit">Sign In</Button>
         </div>
-      </div>
+      </BodyWrapper>
 
       <div>
         <Headers />

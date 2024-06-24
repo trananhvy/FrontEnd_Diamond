@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Card, Button, Modal, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "../../components/Navbar/Navbar";
 
 function ServiceContent() {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    caratWeight: "",
-    cutGrade: "",
-    colorGrade: "",
-    clarityGrade: "",
-    fluorescence: "",
-    shape: "",
-    certification: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    date: "",
+    description: "",
   });
 
   const handleClose = () => setShow(false);
@@ -31,58 +31,62 @@ function ServiceContent() {
 
   return (
     <>
-      <div className="container mt-5">
-        <div className="row justify-content-center">
-          <div className="col-md-4 mb-3">
-            <Card className="shadow">
-              <Card.Img
-                variant="top"
-                src="src/assets/Natural-Rough-and-Polished-16x9-1.webp"
-              />
-              <Card.Body>
-                <Card.Title>Valuate Lab Diamond</Card.Title>
-                <Card.Text>
-                  To evaluate a specific lab diamond, provide the following
-                  details:
-                </Card.Text>
-                <Button variant="primary" onClick={handleShow}>
-                  Book Service Now
-                </Button>
-              </Card.Body>
-            </Card>
-          </div>
-          <div className="col-md-4 mb-3">
-            <Card className="shadow">
-              <Card.Img
-                variant="top"
-                src="src/assets/Natural-Rough-and-Polished-16x9-1.webp"
-              />
-              <Card.Body>
-                <Card.Title>Valuate Natural Diamond</Card.Title>
-                <Card.Text>
-                  To evaluate a specific natural diamond, provide the following
-                  details:
-                </Card.Text>
-                <Button variant="primary" onClick={handleShow}>
-                  Book Service Now
-                </Button>
-              </Card.Body>
-            </Card>
-          </div>
-        </div>
+      <Navbar />
+      <div
+        className="d-flex justify-content-around"
+        style={{ marginTop: "200px" }}
+      >
+        <Card style={{ width: "18rem" }}>
+          <Card.Img
+            variant="top"
+            src="src/assets/Natural-Rough-and-Polished-16x9-1.webp"
+          />
+          <Card.Body>
+            <Card.Title>Valuate Lab Diamond</Card.Title>
+            <Card.Text>
+              To evaluate a specific lab diamond, the following details are
+              essential: <br /> Carat Weight <br />
+              Cut Grade <br /> Color Grade <br /> Clarity Grade <br />{" "}
+              Fluorescence <br /> Shape <br />
+              Certification
+            </Card.Text>
+            <Button variant="primary" onClick={handleShow}>
+              Book Service Now
+            </Button>
+          </Card.Body>
+        </Card>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img
+            variant="top"
+            src="src/assets/Natural-Rough-and-Polished-16x9-1.webp"
+          />
+          <Card.Body>
+            <Card.Title>Valuate Natural Diamond</Card.Title>
+            <Card.Text>
+              To evaluate a specific natural diamond, the following details are
+              essential: <br /> Carat Weight <br />
+              Cut Grade <br /> Color Grade <br /> Clarity Grade <br />{" "}
+              Fluorescence <br /> Shape <br />
+              Certification
+            </Card.Text>
+            <Button variant="primary" onClick={handleShow}>
+              Book Service Now
+            </Button>
+          </Card.Body>
+        </Card>
       </div>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} style={{ marginTop: "100px" }}>
         <Modal.Header closeButton>
           <Modal.Title>Diamond Appraisal Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formCaratWeight">
-              <Form.Label>Carat Weight</Form.Label>
+              <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
-                name="caratWeight"
+                name="fistName"
                 value={formData.caratWeight}
                 onChange={handleChange}
                 required
@@ -90,40 +94,17 @@ function ServiceContent() {
             </Form.Group>
 
             <Form.Group controlId="formCutGrade">
-              <Form.Label>Cut Grade</Form.Label>
+              <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
-                name="cutGrade"
+                name="lastName"
                 value={formData.cutGrade}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-
-            <Form.Group controlId="formColorGrade">
-              <Form.Label>Color Grade</Form.Label>
-              <Form.Control
-                type="text"
-                name="colorGrade"
-                value={formData.colorGrade}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formClarityGrade">
-              <Form.Label>Clarity Grade</Form.Label>
-              <Form.Control
-                type="text"
-                name="clarityGrade"
-                value={formData.clarityGrade}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
             <Form.Group controlId="formFluorescence">
-              <Form.Label>Fluorescence</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="text"
                 name="fluorescence"
@@ -132,32 +113,41 @@ function ServiceContent() {
                 required
               />
             </Form.Group>
-
-            <Form.Group controlId="formShape">
-              <Form.Label>Shape</Form.Label>
+            <Form.Group controlId="formColorGrade">
+              <Form.Label>Phone Number</Form.Label>
               <Form.Control
-                type="text"
-                name="shape"
-                value={formData.shape}
+                type="number"
+                name="phoneNumber"
+                value={formData.colorGrade}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-
-            <Form.Group controlId="formCertification">
-              <Form.Label>Certification</Form.Label>
+            <Form.Group controlId="formClarityGrade">
+              <Form.Label>Date</Form.Label>
               <Form.Control
-                type="text"
-                name="certification"
-                value={formData.certification}
+                type="date"
+                name="date"
+                value={formData.clarityGrade}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-
-            <Button variant="primary" type="submit" className="w-100">
-              Submit
-            </Button>
+            <Form.Group controlId="formClarityGrade">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                name="description"
+                value={formData.clarityGrade}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <div className="d-flex justify-content-center">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
