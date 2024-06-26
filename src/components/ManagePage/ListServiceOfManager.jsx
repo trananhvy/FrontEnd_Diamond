@@ -4,8 +4,7 @@ import React, { useContext } from "react";
 import { FormDataContext } from "../../components/AuthContext/FormDataContext"; // Adjust the path as per your actual structure
 import Navbar from "../../components/Navbar/Navbar";
 import { Table } from "react-bootstrap"; // Import Table from react-bootstrap
-import { AuthContext } from "../../components/AuthContext/AuthContext";
-function ListService() {
+function ListServiceOfManager() {
   const { formData } = useContext(FormDataContext);
 
   console.log(formData);
@@ -55,4 +54,4 @@ function ListService() {
   );
 }
 
-export default ListService;
+export default ListServiceOfManager;

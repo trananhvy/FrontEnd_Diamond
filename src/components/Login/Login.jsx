@@ -1,59 +1,18 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AuthContext } from "../../components/AuthContext/AuthContext"; // Import the context
-
-const ACCOUNT_LIST = [
-  {
-    id: 1,
-    name: "Nguyen Tuan Du",
-    username: "customer1@gmail.com",
-    password: "12345",
-    role: "customer",
-  },
-  {
-    id: 2,
-    name: "Du Tuan Nguyen",
-    username: "customer2@gmail.com",
-    password: "12345",
-    role: "customer",
-  },
-  {
-    id: 3,
-    name: "Little boy",
-    username: "manager@gmail.com",
-    password: "12345",
-    role: "Manager",
-  },
-  {
-    id: 4,
-    name: "Little girl",
-    username: "consultingstaff@gmail.com",
-    password: "12345",
-    role: "Consulting Staff",
-  },
-  {
-    id: 5,
-    name: "Truong Gay",
-    username: "valuatingstaff@gmail.com",
-    password: "12345",
-    role: "Valuating Staff",
-  },
-];
+import { AuthContext } from "../../components/AuthContext/AuthContext";
 
 const StyledButton = styled(Button)`
   width: 100%;
   border-radius: 10px;
   margin-top: ${(props) => (props.google ? "15px" : "0")};
-`;
-
-const CloseIcon = styled(IoIosClose)`
-  width: 50px;
-  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -72,54 +31,48 @@ const LoginPopup = styled.div`
   height: 100%;
 `;
 
-const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const Terms = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: -14px;
-
-  & > p {
-    margin-left: 8px;
-  }
-`;
-
 const SwitchMode = styled.p`
   color: blue;
   cursor: pointer;
 `;
 
-function Login() {
+const Login = () => {
   const [show, setShow] = useState(false);
   const [currentState, setCurrentState] = useState("Sign In");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoggedIn, userRole, signIn, signOut } = useContext(AuthContext); // Use context
+  const [role, setRole] = useState("");
+  const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const user = ACCOUNT_LIST.find(
-      (account) =>
-        account.username === username && account.password === password
-    );
+    try {
+      const response = await axios.get(
+        `https://667c50033c30891b865c30f1.mockapi.io/accountManagement?email=${username}&password=${password}`
+      );
+      const users = response.data;
+      const user = users[0]; // Assuming there's only one user with matching credentials
 
-    if (user) {
-      signIn(user.role, user.name); // Update the global authentication state with role
-      setShow(false);
-    } else {
-      alert("Invalid credentials");
+      if (user) {
+        signIn(); // Update signIn with correct parameters
+        setRole(user.role); // Set role based on user data
+        setShow(false);
+      } else {
+        alert("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed. Please try again.");
     }
   };
 
   const handleSignOut = () => {
-    signOut(); // Update the global authentication state
+    signOut();
+    navigate("/home");
   };
 
   return (
@@ -176,25 +129,23 @@ function Login() {
             </LoginPopup>
           </Modal.Body>
           <Modal.Footer>
-            <ModalContent>
-              <div>
-                {currentState === "Sign In" ? (
-                  <p>
-                    Create a new account?{" "}
-                    <SwitchMode onClick={() => setCurrentState("Sign Up")}>
-                      Click here
-                    </SwitchMode>
-                  </p>
-                ) : (
-                  <p>
-                    Already have an account?{" "}
-                    <SwitchMode onClick={() => setCurrentState("Sign In")}>
-                      Login here
-                    </SwitchMode>
-                  </p>
-                )}
-              </div>
-            </ModalContent>
+            <div>
+              {currentState === "Sign In" ? (
+                <p>
+                  Create a new account?{" "}
+                  <SwitchMode onClick={() => setCurrentState("Sign Up")}>
+                    Click here
+                  </SwitchMode>
+                </p>
+              ) : (
+                <p>
+                  Already have an account?{" "}
+                  <SwitchMode onClick={() => setCurrentState("Sign In")}>
+                    Login here
+                  </SwitchMode>
+                </p>
+              )}
+            </div>
           </Modal.Footer>
         </Modal>
       </div>
@@ -202,35 +153,57 @@ function Login() {
       {isLoggedIn && (
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-            {userRole} Options
+            Options
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            {userRole === "customer" && (
+            {role === "customer" && (
               <>
-                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Your service</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Commitment Form</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/userprofile">
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/listservice">
+                  Your service
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-2">
+                  Commitment Form
+                </Dropdown.Item>
               </>
             )}
-            {userRole === "Manager" && (
+            {role === "manager" && (
               <>
-                <Dropdown.Item href="#/action-3">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">List of staff</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">List of service</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">List of request</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/userprofile">
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/liststaff">
+                  List of staff
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/listserviceM">
+                  List of service
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-4">
+                  List of request
+                </Dropdown.Item>
               </>
             )}
-            {userRole === "Consulting Staff" && (
+            {role === "Consulting Staff" && (
               <>
-                <Dropdown.Item href="#/action-6">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-5">List of request</Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-6">
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-5">
+                  List of request
+                </Dropdown.Item>
               </>
             )}
-            {userRole === "Valuating Staff" && (
+            {role === "Valuating Staff" && (
               <>
-                <Dropdown.Item href="#/action-6">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-5">List of request</Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-6">
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="#/action-5">
+                  List of request
+                </Dropdown.Item>
               </>
             )}
           </Dropdown.Menu>
@@ -238,6 +211,6 @@ function Login() {
       )}
     </>
   );
-}
+};
 
 export default Login;

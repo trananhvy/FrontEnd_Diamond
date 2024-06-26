@@ -15,39 +15,50 @@ import OverviewForEducation from "./components/Overview/OverviewForEducation";
 import OverViewForService from "./components/Overview/OverviewForService";
 import OverviewForValuation from "./components/Overview/OverviewForValuation";
 import OverviewForGIACertificateCheck from "./components/Overview/OverviewForCheck";
-import ServiceForLabDiamond from "./components/ServiceContent/ServiceForLabDiamond";
 import ServiceContent from "./components/ServiceContent/ServiceContent";
 import IntroNaturalDiamond from "./components/Education/IntroNaturalDiamond";
 import IntroLabDiamond from "./components/Education/IntroLabDiamond";
+import CusProfile from "./components/CusPage/CusProfile";
+import { FormDataProvider } from "./components/AuthContext/FormDataContext";
+import ListService from "./components/CusPage/ListService";
+import ListServiceOfManager from "./components/ManagePage/ListServiceOfManager";
+import ListOfStaff from "./components/ManagePage/ListOfStaff";
 function App() {
   return (
     <>
       <AuthProvider>
-        <div>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Layout />} />
-              <Route index element={<Home />} />
-              <Route path="home" element={<Home />} />
-              <Route path="education" element={<Education />} />
-              <Route path="calculate" element={<CalculateContent />} />
-              <Route
-                path="overviewcheck"
-                element={<OverviewForGIACertificateCheck />}
-              />
-              <Route path="overviewedu" element={<OverviewForEducation />} />
-              <Route path="overviewser" element={<OverViewForService />} />
-              <Route path="overviewval" element={<OverviewForValuation />} />
-              <Route path="intronatural" element={<IntroNaturalDiamond />} />
-              <Route path="introlab" element={<IntroLabDiamond />} />
-              <Route path="services" element={<Services />} />
-              <Route path="serviceslab" element={<ServiceContent />} />
-              <Route path="blogs" element={<Blogs />} />
-              <Route path="calculate" element={<Calculate />} />
-              <Route path="diamondcheck" element={<DiamondCheck />} />
-            </Routes>
-          </Router>
-        </div>
+        <FormDataProvider>
+          <div>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Layout />} />
+                <Route index element={<Home />} />
+                <Route path="home" element={<Home />} />
+                <Route path="education" element={<Education />} />
+                <Route path="calculate" element={<CalculateContent />} />
+                <Route
+                  path="overviewcheck"
+                  element={<OverviewForGIACertificateCheck />}
+                />
+                <Route path="overviewedu" element={<OverviewForEducation />} />
+                <Route path="overviewser" element={<OverViewForService />} />
+                <Route path="overviewval" element={<OverviewForValuation />} />
+                <Route path="intronatural" element={<IntroNaturalDiamond />} />
+                <Route path="introlab" element={<IntroLabDiamond />} />
+                <Route path="services" element={<Services />} />
+                <Route path="serviceslab" element={<ServiceContent />} />
+                <Route path="blogs" element={<Blogs />} />
+                <Route path="calculate" element={<Calculate />} />
+                <Route path="diamondcheck" element={<DiamondCheck />} />
+                <Route path="userprofile" element={<CusProfile />} />
+                <Route path="listservice" element={<ListService />} />
+                <Route path="listserviceM" element={<ListServiceOfManager />} />
+                <Route path="liststaff" element={<ListOfStaff />} />
+              </Routes>
+            </Router>
+          </div>
+        </FormDataProvider>
+
         <Footer />
       </AuthProvider>
     </>

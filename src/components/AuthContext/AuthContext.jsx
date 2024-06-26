@@ -4,47 +4,31 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState("");
-  const [name, setName] = useState("");
-  const [id, setID] = useState("");
+
   useEffect(() => {
-    // Check localStorage for existing login data on component mount
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const role = localStorage.getItem("userRole") || "";
-    const name = localStorage.getItem("name") || "";
-    const id = localStorage.getItem("id") || "";
-    if (loggedIn) {
+    // Check local storage for existing login state
+    const storedLoginStatus = localStorage.getItem("isLoggedIn");
+
+    if (storedLoginStatus === "true") {
+      // Set state from local storage if user is logged in
       setIsLoggedIn(true);
-      setUserRole(role);
-      setName(name);
-      setID(id);
     }
   }, []);
 
-  const signIn = (role, name, id) => {
+  const signIn = () => {
+    // Set state and save to local storage on successful sign in
     setIsLoggedIn(true);
-    setUserRole(role);
-    setName(name);
-    setID(id);
     localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userRole", role);
-    localStorage.setItem("name", name);
-    localStorage.setItem("id", id);
   };
 
   const signOut = () => {
+    // Clear state and local storage on sign out
     setIsLoggedIn(false);
-    setUserRole("");
-    setName("");
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("name");
+    localStorage.setItem("isLoggedIn", "false");
   };
 
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn, userRole, signIn, signOut, name }}
-    >
+    <AuthContext.Provider value={{ isLoggedIn, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

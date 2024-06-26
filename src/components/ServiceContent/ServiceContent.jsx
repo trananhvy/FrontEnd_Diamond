@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+// ServiceContent.jsx
+
+import React, { useState, useContext, useEffect } from "react";
 import { Card, Button, Modal, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../../components/Navbar/Navbar";
+import { FormDataContext } from "../../components/AuthContext/FormDataContext"; // Adjust the import path accordingly
 
 function ServiceContent() {
   const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
+  const { formData, setFormData } = useContext(FormDataContext);
+
+  const [localFormData, setLocalFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -19,16 +24,28 @@ function ServiceContent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setLocalFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log("Local Form Data:", localFormData); // Debugging log
   };
-
+  useEffect(() => {
+    console.log("Dữ liệu mới:", formData);
+  }, [formData]); // Theo dõi thay đổi của formData
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add logic to handle form submission, e.g., send data to backend
+    console.log("Submitting form:", localFormData); // Debugging log
+    appendNewData(localFormData);
     handleClose();
   };
-
+  function appendNewData(e) {
+    setFormData((prevFormData) => {
+      const updatedFormData = [...prevFormData, e];
+      console.log("Updated Form Data in Context:", updatedFormData); // Debugging log
+      return updatedFormData;
+    });
+  }
   return (
     <>
       <Navbar />
@@ -45,9 +62,13 @@ function ServiceContent() {
             <Card.Title>Valuate Lab Diamond</Card.Title>
             <Card.Text>
               To evaluate a specific lab diamond, the following details are
-              essential: <br /> Carat Weight <br />
-              Cut Grade <br /> Color Grade <br /> Clarity Grade <br />{" "}
-              Fluorescence <br /> Shape <br />
+              essential: <br />
+              Carat Weight <br />
+              Cut Grade <br />
+              Color Grade <br />
+              Clarity Grade <br />
+              Fluorescence <br />
+              Shape <br />
               Certification
             </Card.Text>
             <Button variant="primary" onClick={handleShow}>
@@ -64,9 +85,13 @@ function ServiceContent() {
             <Card.Title>Valuate Natural Diamond</Card.Title>
             <Card.Text>
               To evaluate a specific natural diamond, the following details are
-              essential: <br /> Carat Weight <br />
-              Cut Grade <br /> Color Grade <br /> Clarity Grade <br />{" "}
-              Fluorescence <br /> Shape <br />
+              essential: <br />
+              Carat Weight <br />
+              Cut Grade <br />
+              Color Grade <br />
+              Clarity Grade <br />
+              Fluorescence <br />
+              Shape <br />
               Certification
             </Card.Text>
             <Button variant="primary" onClick={handleShow}>
@@ -82,67 +107,72 @@ function ServiceContent() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formCaratWeight">
+            <Form.Group controlId="formFirstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
-                name="fistName"
-                value={formData.caratWeight}
+                name="firstName"
+                value={localFormData.firstName}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
 
-            <Form.Group controlId="formCutGrade">
+            <Form.Group controlId="formLastName">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
                 name="lastName"
-                value={formData.cutGrade}
+                value={localFormData.lastName}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formFluorescence">
+
+            <Form.Group controlId="formEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type="text"
-                name="fluorescence"
-                value={formData.fluorescence}
+                type="email"
+                name="email"
+                value={localFormData.email}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formColorGrade">
+
+            <Form.Group controlId="formPhone">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
-                type="number"
-                name="phoneNumber"
-                value={formData.colorGrade}
+                type="tel"
+                name="phone"
+                value={localFormData.phone}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formClarityGrade">
+
+            <Form.Group controlId="formDate">
               <Form.Label>Date</Form.Label>
               <Form.Control
                 type="date"
                 name="date"
-                value={formData.clarityGrade}
+                value={localFormData.date}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formClarityGrade">
+
+            <Form.Group controlId="formDescription">
               <Form.Label>Description</Form.Label>
               <Form.Control
                 type="text"
                 name="description"
-                value={formData.clarityGrade}
+                value={localFormData.description}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
+
             <div className="d-flex justify-content-center">
               <Button variant="primary" type="submit">
                 Submit
