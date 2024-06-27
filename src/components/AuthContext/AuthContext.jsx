@@ -7,19 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [isRole, setIsRole] = useState("");
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    // Check local storage for existing login state
-    const storedLoginStatus = localStorage.getItem("isLoggedIn");
-    const storedUserData = localStorage.getItem("userData");
-
-    if (storedLoginStatus === "true" && storedUserData) {
-      // Set state from local storage if user is logged in
-      setIsLoggedIn(true);
-      setUserData(JSON.parse(storedUserData));
-      setIsRole(JSON.parse(storedUserData).role);
-    }
-  }, []);
-
   const signIn = (user) => {
     // Set state and save to local storage on successful sign in
     setIsLoggedIn(true);

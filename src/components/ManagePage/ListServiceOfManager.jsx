@@ -1,13 +1,28 @@
-// ListService.jsx
-
-import React, { useContext } from "react";
-import { FormDataContext } from "../../components/AuthContext/FormDataContext"; // Adjust the path as per your actual structure
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Navbar from "../../components/Navbar/Navbar";
-import { Table } from "react-bootstrap"; // Import Table from react-bootstrap
-function ListServiceOfManager() {
-  const { formData } = useContext(FormDataContext);
+import { Table } from "react-bootstrap";
 
-  console.log(formData);
+function ListService() {
+  const [formData, setFormData] = useState([]);
+  const { userData } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://667c50033c30891b865c30f1.mockapi.io/serviceManagement"
+        );
+        setFormData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   if (!formData || formData.length === 0) {
     return (
       <>
@@ -18,6 +33,7 @@ function ListServiceOfManager() {
       </>
     );
   }
+
   return (
     <>
       <Navbar />
@@ -54,4 +70,4 @@ function ListServiceOfManager() {
   );
 }
 
-export default ListServiceOfManager;
+export default ListService;

@@ -1,14 +1,15 @@
 // ServiceContent.jsx
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Card, Button, Modal, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../../components/Navbar/Navbar";
-import { FormDataContext } from "../../components/AuthContext/FormDataContext"; // Adjust the import path accordingly
+import axios from "axios";
+import { AuthContext } from "../../components/AuthContext/AuthContext";
 
 function ServiceContent() {
   const [show, setShow] = useState(false);
-  const { formData, setFormData } = useContext(FormDataContext);
+  const { userData } = useContext(AuthContext);
 
   const [localFormData, setLocalFormData] = useState({
     firstName: "",
@@ -17,6 +18,7 @@ function ServiceContent() {
     phone: "",
     date: "",
     description: "",
+    userID: userData.id, // Thêm userId vào localFormData
   });
 
   const handleClose = () => setShow(false);
@@ -30,22 +32,26 @@ function ServiceContent() {
     }));
     console.log("Local Form Data:", localFormData); // Debugging log
   };
-  useEffect(() => {
-    console.log("Dữ liệu mới:", formData);
-  }, [formData]); // Theo dõi thay đổi của formData
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting form:", localFormData); // Debugging log
-    appendNewData(localFormData);
+    try {
+      const response = await axios.post(
+        "https://667c50033c30891b865c30f1.mockapi.io/serviceManagement",
+        localFormData
+      );
+      if (response.status === 201) {
+        console.log("Data successfully saved:", response.data);
+      } else {
+        console.log("Failed to save data");
+      }
+    } catch (error) {
+      console.error("Error occurred while saving data:", error);
+    }
     handleClose();
   };
-  function appendNewData(e) {
-    setFormData((prevFormData) => {
-      const updatedFormData = [...prevFormData, e];
-      console.log("Updated Form Data in Context:", updatedFormData); // Debugging log
-      return updatedFormData;
-    });
-  }
+
   return (
     <>
       <Navbar />
@@ -172,6 +178,13 @@ function ServiceContent() {
                 required
               />
             </Form.Group>
+
+            <Form.Control
+              type="hidden"
+              name="userId"
+              value={localFormData.userId}
+              readOnly
+            />
 
             <div className="d-flex justify-content-center">
               <Button variant="primary" type="submit">
