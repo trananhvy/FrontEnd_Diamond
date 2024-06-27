@@ -3,7 +3,7 @@ import { AuthContext } from "../../components/AuthContext/AuthContext";
 import Navbar from "../../components/Navbar/Navbar";
 
 function CusProfile() {
-  const { userData } = useContext(AuthContext);
+  const { userData, id } = useContext(AuthContext);
 
   if (!userData) {
     return (
@@ -20,19 +20,26 @@ function CusProfile() {
       <div style={{ marginTop: "50px" }}>
         <h1>User Profile</h1>
         <p>
-          <strong>ID:</strong> {userData.id}
+          <strong>ID: </strong> {userData.id}
         </p>
         <p>
-          <strong>Name:</strong> {userData.name}
+          <strong>FIRST NAME: </strong> {userData.firstName}
         </p>
         <p>
-          <strong>Username:</strong> {userData.username}
+          <strong>LAST NAME: </strong> {userData.lastName}
         </p>
         <p>
-          <strong>Password:</strong> {userData.password}
+          <strong>DATE OF BIRTH: </strong> {userData.dateofbirth}
         </p>
         <p>
-          <strong>Role:</strong> {userData.role}
+          <strong>EMAIL: </strong> {userData.email}
+        </p>
+        a
+        <p>
+          <strong>PASSWORD: </strong> {userData.password}
+        </p>
+        <p>
+          <strong>ROLE: </strong> {userData.role}
         </p>
       </div>
     </>

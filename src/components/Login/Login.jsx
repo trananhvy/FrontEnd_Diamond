@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
-import { IoIosClose } from "react-icons/io";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -38,15 +37,20 @@ const SwitchMode = styled.p`
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [currentState, setCurrentState] = useState("Sign In");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const { isLoggedIn, signIn, signOut } = useContext(AuthContext);
+  const { isLoggedIn, signIn, signOut, isRole } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    setShowDropdown(false);
+  }, [location]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -58,8 +62,7 @@ const Login = () => {
       const user = users[0]; // Assuming there's only one user with matching credentials
 
       if (user) {
-        signIn(); // Update signIn with correct parameters
-        setRole(user.role); // Set role based on user data
+        signIn(user); // Update signIn with correct parameters
         setShow(false);
       } else {
         alert("Invalid credentials");
@@ -73,6 +76,10 @@ const Login = () => {
   const handleSignOut = () => {
     signOut();
     navigate("/home");
+  };
+
+  const handleItemClick = (link) => {
+    navigate(link);
   };
 
   return (
@@ -151,57 +158,75 @@ const Login = () => {
       </div>
 
       {isLoggedIn && (
-        <Dropdown>
+        <Dropdown
+          show={showDropdown}
+          onToggle={() => setShowDropdown(!showDropdown)}
+        >
           <Dropdown.Toggle variant="success" id="dropdown-basic">
             Options
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            {role === "customer" && (
+            {isRole === "customer" && (
               <>
-                <Dropdown.Item as={Link} to="/userprofile">
+                <Dropdown.Item onClick={() => handleItemClick("/userprofile")}>
                   Profile
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/listservice">
+                <Dropdown.Item onClick={() => handleItemClick("/listservice")}>
                   Your service
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="#/action-2">
+                <Dropdown.Item onClick={() => handleItemClick("#/action-2")}>
                   Commitment Form
                 </Dropdown.Item>
               </>
             )}
-            {role === "manager" && (
+            {isRole === "manager" && (
               <>
-                <Dropdown.Item as={Link} to="/userprofile">
+                <Dropdown.Item onClick={() => handleItemClick("/userprofile")}>
                   Profile
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/liststaff">
+                <Dropdown.Item onClick={() => handleItemClick("/liststaff")}>
                   List of staff
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/listserviceM">
+                <Dropdown.Item onClick={() => handleItemClick("/listserviceM")}>
                   List of service
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="#/action-4">
+                <Dropdown.Item
+                  as="button"
+                  onClick={() => handleItemClick("#/action-4")}
+                >
                   List of request
                 </Dropdown.Item>
               </>
             )}
-            {role === "Consulting Staff" && (
+            {isRole === "Consulting Staff" && (
               <>
-                <Dropdown.Item as={Link} to="#/action-6">
+                <Dropdown.Item
+                  as="button"
+                  onClick={() => handleItemClick("#/action-6")}
+                >
                   Profile
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="#/action-5">
+                <Dropdown.Item
+                  as="button"
+                  onClick={() => handleItemClick("#/action-5")}
+                >
                   List of request
                 </Dropdown.Item>
               </>
             )}
-            {role === "Valuating Staff" && (
+            {isRole === "Valuating Staff" && (
               <>
-                <Dropdown.Item as={Link} to="#/action-6">
+                <Dropdown.Item
+                  as="button"
+                  onClick={() => handleItemClick("#/action-6")}
+                >
                   Profile
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="#/action-5">
+                <Dropdown.Item
+                  as="button"
+                  onClick={() => handleItemClick("#/action-5")}
+                >
                   List of request
                 </Dropdown.Item>
               </>
