@@ -23,6 +23,10 @@ import { FormDataProvider } from "./components/AuthContext/FormDataContext";
 import ListService from "./components/CusPage/ListService";
 import ListServiceOfManager from "./components/ManagePage/ListServiceOfManager";
 import ListOfStaff from "./components/ManagePage/ListOfStaff";
+import VStaffProfile from "./components/Valuating Staff/VStaffProfile";
+import CSStaffProfile from "./components/Consulting Staff/CStaffProfile";
+import ListServiceCS from "./components/Consulting Staff/ListServiceCS";
+import ListServiceVS from "./components/Valuating Staff/ListServiceVS";
 function App() {
   return (
     <>
@@ -51,9 +55,12 @@ function App() {
                 <Route path="calculate" element={<Calculate />} />
                 <Route path="diamondcheck" element={<DiamondCheck />} />
                 <Route path="userprofile" element={<CusProfile />} />
+                <Route path="listServiceOfVS" element={<VStaffProfile />} />
+                <Route path="listServiceOfCS" element={<CSStaffProfile />} />
                 <Route path="listservice" element={<ListService />} />
                 <Route path="listserviceM" element={<ListServiceOfManager />} />
-                <Route path="liststaff" element={<ListOfStaff />} />
+                <Route path="liststaffcs" element={<ListServiceCS />} />
+                <Route path="liststaffvs" element={<ListServiceVS />} />
               </Routes>
             </Router>
           </div>

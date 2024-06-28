@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../../components/AuthContext/AuthContext";
-import Navbar from "../../components/Navbar/Navbar";
+import { AuthContext } from "../AuthContext/AuthContext";
+import Navbar from "../Navbar/Navbar";
 import { Table } from "react-bootstrap";
 
-function ListService() {
+function ListServiceVS() {
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
@@ -69,4 +69,4 @@ function ListService() {
   );
 }
 
-export default ListService;
+export default ListServiceVS;
