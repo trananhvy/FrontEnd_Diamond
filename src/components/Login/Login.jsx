@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
-
 const StyledButton = styled(Button)`
   width: 100%;
   border-radius: 10px;
@@ -41,39 +40,47 @@ const Login = () => {
   return (
     <>
       <div>
-        {isLoggedIn ? (
-          <StyledButton variant="primary" onClick={handleSignOut}>
-            Sign Out
-          </StyledButton>
-        ) : (
-          <StyledButton variant="primary" onClick={handleShow}>
-            Sign In / Sign Up
-          </StyledButton>
-        )}
-
-        <Modal show={show} onHide={handleClose} style={{ marginTop: "150px" }}>
-          <Modal.Header closeButton>
-            <Button
-              variant={currentState === "Sign In" ? "primary" : ""}
-              onClick={() => setCurrentState("Sign In")}
-            >
-              Sign In
-            </Button>
-            <Button
-              variant={currentState === "Sign Up" ? "primary" : ""}
-              onClick={() => setCurrentState("Sign Up")}
-            >
-              Sign Up
-            </Button>
-          </Modal.Header>
-          <Modal.Body>
-            {currentState === "Sign In" ? (
-              <SignIn setShow={setShow} />
-            ) : (
-              <SignUp setShow={setShow} />
-            )}
-          </Modal.Body>
-        </Modal>
+        <div>
+          {isLoggedIn ? (
+            <StyledButton variant="primary" onClick={handleSignOut}>
+              Sign Out
+            </StyledButton>
+          ) : (
+            <StyledButton variant="primary" onClick={handleShow}>
+              Sign In / Sign Up
+            </StyledButton>
+          )}
+        </div>
+        <div>
+          <Modal
+            show={show}
+            onHide={handleClose}
+            style={{ marginTop: "150px" }}
+            size="lg"
+          >
+            <Modal.Header closeButton>
+              <Button
+                variant={currentState === "Sign In" ? "primary" : ""}
+                onClick={() => setCurrentState("Sign In")}
+              >
+                Sign In
+              </Button>
+              <Button
+                variant={currentState === "Sign Up" ? "primary" : ""}
+                onClick={() => setCurrentState("Sign Up")}
+              >
+                Sign Up
+              </Button>
+            </Modal.Header>
+            <Modal.Body>
+              {currentState === "Sign In" ? (
+                <SignIn setShow={setShow} />
+              ) : (
+                <SignUp setShow={setShow} />
+              )}
+            </Modal.Body>
+          </Modal>
+        </div>
       </div>
 
       {isLoggedIn && (
@@ -82,7 +89,7 @@ const Login = () => {
           onToggle={() => setShowDropdown(!showDropdown)}
         >
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Options
+            <img src="src/assets/star_13692639.png" style={{ width: "20px" }} />
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -99,38 +106,14 @@ const Login = () => {
                 </Dropdown.Item>
               </>
             )}
-            {isRole === "manager" && (
-              <>
-                <Dropdown.Item onClick={() => handleItemClick("/userprofile")}>
-                  Profile
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleItemClick("/liststaff")}>
-                  List of staff
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleItemClick("/listserviceM")}>
-                  List of service
-                </Dropdown.Item>
-                <Dropdown.Item
-                  as="button"
-                  onClick={() => handleItemClick("/listRequest")}
-                >
-                  List of request
-                </Dropdown.Item>
-              </>
-            )}
+            {isRole === "manager" && navigate("/managePage")}
             {isRole === "consultingstaff" && (
               <>
                 <Dropdown.Item
                   as="button"
-                  onClick={() => handleItemClick("/staffprofile")}
+                  onClick={() => handleItemClick("/csPage")}
                 >
-                  Profile
-                </Dropdown.Item>
-                <Dropdown.Item
-                  as="button"
-                  onClick={() => handleItemClick("/liststaffcs")}
-                >
-                  List of service
+                  Consulting Staff Dashboard
                 </Dropdown.Item>
               </>
             )}
@@ -138,15 +121,9 @@ const Login = () => {
               <>
                 <Dropdown.Item
                   as="button"
-                  onClick={() => handleItemClick("/liststaffvs")}
+                  onClick={() => handleItemClick("/vsPage")}
                 >
-                  Profile
-                </Dropdown.Item>
-                <Dropdown.Item
-                  as="button"
-                  onClick={() => handleItemClick("#/action-5")}
-                >
-                  List of request
+                  Valuating Staff Dashboard
                 </Dropdown.Item>
               </>
             )}

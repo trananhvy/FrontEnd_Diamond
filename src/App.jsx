@@ -21,12 +21,17 @@ import IntroLabDiamond from "./components/Education/IntroLabDiamond";
 import CusProfile from "./components/CusPage/CusProfile";
 import { FormDataProvider } from "./components/AuthContext/FormDataContext";
 import ListService from "./components/CusPage/ListService";
-import ListServiceOfManager from "./components/ManagePage/ListServiceOfManager";
-import ListOfStaff from "./components/ManagePage/ListOfStaff";
+import ListServiceOfManager from "./components/Manage/ListServiceOfManager";
+import ListOfStaff from "./components/Manage/ListOfStaff";
 import VStaffProfile from "./components/Valuating Staff/VStaffProfile";
 import CSStaffProfile from "./components/Consulting Staff/CStaffProfile";
 import ListServiceCS from "./components/Consulting Staff/ListServiceCS";
 import ListServiceVS from "./components/Valuating Staff/ListServiceVS";
+import ManagePage from "./components/Manage/ManagaPage";
+import NavbarOfManager from "./components/Manage/NavbarOfManager";
+import ManagerProfile from "./components/Manage/ManageProfile";
+import ValuatingStaffPage from "./components/Valuating Staff/ValuatingStaffPage";
+import CStaffPage from "./components/Consulting Staff/CStaffPage";
 function App() {
   return (
     <>
@@ -59,8 +64,16 @@ function App() {
                 <Route path="listServiceOfCS" element={<CSStaffProfile />} />
                 <Route path="listservice" element={<ListService />} />
                 <Route path="listserviceM" element={<ListServiceOfManager />} />
+                <Route path="liststaff" element={<ListOfStaff />} />
+                <Route path="managePage" element={<ManagePage />} />
+                <Route path="managePageProfile" element={<ManagerProfile />} />
+                <Route path="navbarM" element={<NavbarOfManager />} />
                 <Route path="liststaffcs" element={<ListServiceCS />} />
                 <Route path="liststaffvs" element={<ListServiceVS />} />
+                <Route path="vsPage" element={<ValuatingStaffPage />} />
+                <Route path="vsProfile" element={<VStaffProfile />} />
+                <Route path="csProfile" element={<CSStaffProfile />} />
+                <Route path="csPage" element={<CStaffPage />} />
               </Routes>
             </Router>
           </div>

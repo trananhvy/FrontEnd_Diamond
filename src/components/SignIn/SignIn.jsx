@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
+import { FaGoogle } from "react-icons/fa6";
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -20,10 +21,39 @@ const Input = styled.input`
   margin-top: 15px;
 `;
 
-const LoginPopup = styled.div`
+const LoginPopup = styled.div``;
+
+const StyledButton2 = styled(Button)`
+  width: 80%;
+  background-color: grey;
+  border-radius: 10px;
+  margin-left: 10%;
+  margin-top: ${(props) => (props.google ? "15px" : "20px")};
+`;
+
+const SignInContainer = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const FormContainer = styled.div`
+  width: 50%;
+  padding: 20px;
+`;
+
+const ImageContainer = styled.div`
+  width: 60%;
+  display: flex;
+  height: 270px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`;
+
+const StyledImage = styled.img`
   width: 100%;
-  height: 100%;
+  border-radius: 10px;
 `;
 
 const SignIn = ({ setShow }) => {
@@ -53,30 +83,43 @@ const SignIn = ({ setShow }) => {
   };
 
   return (
-    <LoginPopup>
-      <form onSubmit={handleFormSubmit}>
-        <Input
-          type="email"
-          placeholder="Your email"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Your password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <StyledButton type="submit" variant="primary">
-          Sign In
-        </StyledButton>
-
-        <p> Forget password? Click here to reset your password</p>
-        <StyledButton variant="primary" google>
-          Sign In with Google Account
-        </StyledButton>
-      </form>
-    </LoginPopup>
+    <SignInContainer>
+      <FormContainer>
+        <form onSubmit={handleFormSubmit}>
+          <Input
+            type="email"
+            placeholder="Your email"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Your password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <p>Forget password? Click here to reset your password</p>
+          <StyledButton type="submit" variant="primary">
+            Sign In
+          </StyledButton>
+        </form>
+        <StyledButton2 google>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FaGoogle style={{ marginRight: "8px" }} />
+            Sign in with Google
+          </div>
+        </StyledButton2>
+      </FormContainer>
+      <ImageContainer>
+        <StyledImage src="https://physics.aps.org/assets/58434729-f278-4bc7-ad3c-faf98d3db26b/e40_1.png" />
+      </ImageContainer>
+    </SignInContainer>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
+import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarOfVS from "./NavbarVS";
+import NavbarOfManager from "./NavbarOfManager";
 
 function ManageProfile() {
   const { userData, updateUser } = useContext(AuthContext);
@@ -73,7 +74,7 @@ function ManageProfile() {
     <>
       <div style={{ display: "flex" }}>
         <div>
-          <NavbarOfVS />
+          <NavbarOfManager />
         </div>
         <div style={{ marginLeft: "50px" }}>
           <div style={{ marginTop: "50px" }}>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Headers from "../../components/Headers/Headers";
 import Navbar from "../../components/Navbar/Navbar";
-import CertificateComponent from "../CertificateComponent/CertificateComponent";
+import CertificateComponent from "../View/CertificateComponent/CertificateComponent";
 import Footer from "../../components/Footer/Footer";
 import { UserContext } from "../CalculateContext/CalculateContent1";
 

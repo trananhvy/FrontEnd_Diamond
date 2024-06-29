@@ -14,13 +14,10 @@ function CusProfile() {
   const [newDateOfBirth, setNewDateOfBirth] = useState(userData.dateofbirth);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [showFirstNameModal, setShowFirstNameModal] = useState(false);
-  const [showLastNameModal, setShowLastNameModal] = useState(false);
-  const [showDateOfBirthModal, setShowDateOfBirthModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
-  const handleChangePassword = async () => {
-    if (newPassword !== confirmPassword) {
+  const handleChangeProfile = async () => {
+    if (newPassword && newPassword !== confirmPassword) {
       setMessage("Passwords do not match");
       return;
     }
@@ -30,94 +27,33 @@ function CusProfile() {
     try {
       const response = await axios.put(
         `https://667c50033c30891b865c30f1.mockapi.io/accountManagement/${userData.id}`,
-        { password: newPassword }
+        {
+          firstName: newFirstName,
+          lastName: newLastName,
+          dateofbirth: newDateOfBirth,
+          ...(newPassword && { password: newPassword }),
+        }
       );
 
       if (response.status === 200) {
-        const updatedUser = { ...userData, password: newPassword };
+        const updatedUser = {
+          ...userData,
+          firstName: newFirstName,
+          lastName: newLastName,
+          dateofbirth: newDateOfBirth,
+          ...(newPassword && { password: newPassword }),
+        };
         updateUser(updatedUser); // Update user data in AuthContext
-        setMessage("Password changed successfully");
+        setMessage("Profile updated successfully");
       } else {
-        setMessage("Failed to change password");
+        setMessage("Failed to update profile");
       }
     } catch (error) {
-      setMessage("Error occurred while changing password");
+      setMessage("Error occurred while updating profile");
     }
 
     setLoading(false);
-    setShowPasswordModal(false);
-  };
-
-  const handleChangeFirstName = async () => {
-    setLoading(true);
-
-    try {
-      const response = await axios.put(
-        `https://667c50033c30891b865c30f1.mockapi.io/accountManagement/${userData.id}`,
-        { firstName: newFirstName }
-      );
-
-      if (response.status === 200) {
-        const updatedUser = { ...userData, firstName: newFirstName };
-        updateUser(updatedUser);
-        setMessage("First name changed successfully");
-      } else {
-        setMessage("Failed to change first name");
-      }
-    } catch (error) {
-      setMessage("Error occurred while changing first name");
-    }
-
-    setLoading(false);
-    setShowFirstNameModal(false);
-  };
-
-  const handleChangeLastName = async () => {
-    setLoading(true);
-
-    try {
-      const response = await axios.put(
-        `https://667c50033c30891b865c30f1.mockapi.io/accountManagement/${userData.id}`,
-        { lastName: newLastName }
-      );
-
-      if (response.status === 200) {
-        const updatedUser = { ...userData, lastName: newLastName };
-        updateUser(updatedUser);
-        setMessage("Last name changed successfully");
-      } else {
-        setMessage("Failed to change last name");
-      }
-    } catch (error) {
-      setMessage("Error occurred while changing last name");
-    }
-
-    setLoading(false);
-    setShowLastNameModal(false);
-  };
-
-  const handleChangeDateOfBirth = async () => {
-    setLoading(true);
-
-    try {
-      const response = await axios.put(
-        `https://667c50033c30891b865c30f1.mockapi.io/accountManagement/${userData.id}`,
-        { dateofbirth: newDateOfBirth }
-      );
-
-      if (response.status === 200) {
-        const updatedUser = { ...userData, dateofbirth: newDateOfBirth };
-        updateUser(updatedUser);
-        setMessage("Date of birth changed successfully");
-      } else {
-        setMessage("Failed to change date of birth");
-      }
-    } catch (error) {
-      setMessage("Error occurred while changing date of birth");
-    }
-
-    setLoading(false);
-    setShowDateOfBirthModal(false);
+    setShowProfileModal(false);
   };
 
   const formatDateOfBirth = (date) => {
@@ -144,89 +80,37 @@ function CusProfile() {
         </p>
         <p>
           <strong>FIRST NAME: </strong> {userData.firstName}
-          <Button variant="link" onClick={() => setShowFirstNameModal(true)}>
-            Edit
-          </Button>
         </p>
         <p>
           <strong>LAST NAME: </strong> {userData.lastName}
-          <Button variant="link" onClick={() => setShowLastNameModal(true)}>
-            Edit
-          </Button>
         </p>
         <p>
           <strong>DATE OF BIRTH: </strong>{" "}
           {formatDateOfBirth(userData.dateofbirth)}
-          <Button variant="link" onClick={() => setShowDateOfBirthModal(true)}>
-            Edit
-          </Button>
         </p>
         <p>
           <strong>EMAIL: </strong> {userData.email}
         </p>
         <p>
           <strong>PASSWORD: </strong> ********
-          <Button variant="link" onClick={() => setShowPasswordModal(true)}>
-            Change Password
-          </Button>
         </p>
         <p>
           <strong>ROLE: </strong> {userData.role}
         </p>
+        <Button variant="primary" onClick={() => setShowProfileModal(true)}>
+          Edit Profile
+        </Button>
       </div>
 
-      <Modal
-        show={showPasswordModal}
-        onHide={() => setShowPasswordModal(false)}
-      >
+      <Modal show={showProfileModal} onHide={() => setShowProfileModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Change Password</Modal.Title>
+          <Modal.Title>Edit Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              handleChangePassword();
-            }}
-          >
-            <Form.Group controlId="newPassword">
-              <Form.Label>New Password:</Form.Label>
-              <Form.Control
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password:</Form.Label>
-              <Form.Control
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Changing..." : "Change Password"}
-            </Button>
-          </Form>
-          {message && <p>{message}</p>}
-        </Modal.Body>
-      </Modal>
-
-      <Modal
-        show={showFirstNameModal}
-        onHide={() => setShowFirstNameModal(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Change First Name</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleChangeFirstName();
+              handleChangeProfile();
             }}
           >
             <Form.Group controlId="newFirstName">
@@ -238,28 +122,6 @@ function CusProfile() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Changing..." : "Change First Name"}
-            </Button>
-          </Form>
-          {message && <p>{message}</p>}
-        </Modal.Body>
-      </Modal>
-
-      <Modal
-        show={showLastNameModal}
-        onHide={() => setShowLastNameModal(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Change Last Name</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleChangeLastName();
-            }}
-          >
             <Form.Group controlId="newLastName">
               <Form.Label>Last Name:</Form.Label>
               <Form.Control
@@ -269,42 +131,33 @@ function CusProfile() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Changing..." : "Change Last Name"}
-            </Button>
-          </Form>
-          {message && <p>{message}</p>}
-        </Modal.Body>
-      </Modal>
-
-      <Modal
-        show={showDateOfBirthModal}
-        onHide={() => setShowDateOfBirthModal(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Change Date of Birth</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleChangeDateOfBirth();
-            }}
-          >
             <Form.Group controlId="newDateOfBirth">
-              <Form.Label>Date of Birth (dd/mm/yyyy):</Form.Label>
+              <Form.Label>Date of Birth (yyyy-mm-dd):</Form.Label>
               <Form.Control
                 type="date"
                 value={newDateOfBirth}
                 onChange={(e) => setNewDateOfBirth(e.target.value)}
-                placeholder="dd/mm/yyyy"
-                pattern="\d
-{1,2}/\d{1,2}/\d{4}"
                 required
               />
             </Form.Group>
+            <Form.Group controlId="newPassword">
+              <Form.Label>New Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="confirmPassword">
+              <Form.Label>Confirm Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Form.Group>
             <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Changing..." : "Change Date of Birth"}
+              {loading ? "Updating..." : "Update Profile"}
             </Button>
           </Form>
           {message && <p>{message}</p>}

@@ -10,7 +10,7 @@ import { AuthContext } from "../../components/AuthContext/AuthContext";
 function ServiceContent() {
   const [show, setShow] = useState(false);
   const { userData } = useContext(AuthContext);
-
+  const { isLoggedIn, signOut, isRole } = useContext(AuthContext);
   const [localFormData, setLocalFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,7 +18,7 @@ function ServiceContent() {
     phone: "",
     date: "",
     description: "",
-    userID: userData.id, // Thêm userId vào localFormData
+    userID: isLoggedIn ? userData.id : "0", // Thêm userId vào localFormData
   });
 
   const handleClose = () => setShow(false);

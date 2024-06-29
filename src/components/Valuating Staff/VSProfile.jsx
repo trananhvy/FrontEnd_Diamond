@@ -1,11 +1,33 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../components/AuthContext/AuthContext";
-import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarOfVS from "./NavbarVS";
+import styled from "styled-components";
+import NavbarOfManager from "./NavbarOfManager";
 
-function ManageProfile() {
+const ManagePageContainer = styled.div`
+  display: flex;
+`;
+
+const ProfileContainer = styled.div`
+  margin-left: 150px;
+  margin-top: 50px;
+`;
+
+const ProfileHeader = styled.h1`
+  margin-bottom: 20px;
+`;
+
+const ProfileInfo = styled.div`
+  p {
+    margin-bottom: 10px;
+  }
+`;
+
+const EditButton = styled(Button)`
+  margin-top: 10px;
+`;
+
+function ManagerProfile() {
   const { userData, updateUser } = useContext(AuthContext);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -61,49 +83,42 @@ function ManageProfile() {
     return `${day}/${month}/${year}`;
   };
 
-  if (!userData) {
-    return (
-      <>
-        <div style={{ marginTop: "100px" }}>Loading</div>
-      </>
-    );
-  }
-
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <div>
-          <NavbarOfVS />
-        </div>
-        <div style={{ marginLeft: "50px" }}>
-          <div style={{ marginTop: "50px" }}>
-            <h1>User Profile</h1>
+      <ManagePageContainer>
+        <NavbarOfManager />
+        <ProfileContainer>
+          <ProfileHeader>User Profile</ProfileHeader>
+          <ProfileInfo>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>ID: </strong> {userData.id}
+              <strong>ID:</strong> {userData.id}
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>FIRST NAME: </strong> {userData.firstName}
+              <strong>FIRST NAME:</strong> {userData.firstName}
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>LAST NAME: </strong> {userData.lastName}
+              <strong>LAST NAME:</strong> {userData.lastName}
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>DATE OF BIRTH: </strong>{" "}
+              <strong>DATE OF BIRTH:</strong>{" "}
               {formatDateOfBirth(userData.dateofbirth)}
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>EMAIL: </strong> {userData.email}
+              <strong>EMAIL:</strong> {userData.email}
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>PASSWORD: </strong> ********
+              <strong>PASSWORD:</strong> ********
             </p>
             <p style={{ fontSize: "30px", paddingTop: "10px" }}>
-              <strong>ROLE: </strong> {userData.role}
+              <strong>ROLE:</strong> {userData.role}
             </p>
-            <Button variant="primary" onClick={() => setShowProfileModal(true)}>
+            <EditButton
+              variant="primary"
+              onClick={() => setShowProfileModal(true)}
+            >
               Edit Profile
-            </Button>
-          </div>
+            </EditButton>
+          </ProfileInfo>
 
           <Modal
             show={showProfileModal}
@@ -169,10 +184,10 @@ function ManageProfile() {
               {message && <p>{message}</p>}
             </Modal.Body>
           </Modal>
-        </div>
-      </div>
+        </ProfileContainer>
+      </ManagePageContainer>
     </>
   );
 }
 
-export default ManageProfile;
+export default ManagerProfile;

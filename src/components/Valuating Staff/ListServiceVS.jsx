@@ -25,7 +25,6 @@ function ListServiceVS() {
   if (!formData || formData.length === 0) {
     return (
       <>
-        <Navbar />
         <div style={{ marginTop: "100px", textAlign: "center" }}>
           No data available
         </div>
@@ -35,7 +34,6 @@ function ListServiceVS() {
 
   return (
     <>
-      <Navbar />
       <div className="container" style={{ marginTop: "50px" }}>
         <h1>List of Service</h1>
         <Table striped bordered hover>
