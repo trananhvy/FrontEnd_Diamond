@@ -119,7 +119,7 @@ function Navbar({ setMenu }) {
             title="DIAMOND CHECK"
           >
             <Dropdown.Item as={Link} to="/overviewcheck">
-              OVERVIEW
+              What is a Certified Diamond
             </Dropdown.Item>
             <Dropdown.Item as={Link} to="/diamondCheck">
               Diamond Check

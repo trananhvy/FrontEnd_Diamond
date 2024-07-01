@@ -45,6 +45,7 @@ function NavbarOfManager() {
 
   return (
     <NavbarContainer>
+      <h3> Hello Manager </h3>
       <NavButton onClick={() => handleNavigation("/managePage")}>
         Dashboard
       </NavButton>
@@ -55,7 +56,7 @@ function NavbarOfManager() {
         List of staff
       </NavButton>
       <NavButton onClick={() => handleNavigation("/reports")}>
-        List of request
+        List of diamond
       </NavButton>
       <NavButton onClick={() => handleNavigation("/reports")}>
         Manage task

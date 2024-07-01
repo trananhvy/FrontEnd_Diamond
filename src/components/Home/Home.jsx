@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import DiamondComponent from "../DiamondComponent/DiamondComponent";
 import Footer from "../Footer/Footer";
-import Header from "../Headers/Headers";
+import CompactCarousel from "../Headers/Headers";
 import { AuthContext } from "../AuthContext/AuthContext"; // Import the context
 import styled, { keyframes } from "styled-components";
 
@@ -17,8 +17,15 @@ const scroll = keyframes`
 `;
 
 const Body = styled.div`
-  background-color: #faf6f0;
   min-height: 100vh;
+  text-align: left;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 15px;
 `;
 
 const WelcomeMessageContainer = styled.div`
@@ -43,18 +50,15 @@ function Home() {
   const [menu, setMenu] = useState("home");
 
   return (
-    <>
-      <Navbar menu={menu} setMenu={setMenu} />
-      <Body>
-        {isLoggedIn && name && (
-          <WelcomeMessageContainer>
-            <WelcomeMessage>Welcome {name}</WelcomeMessage>
-          </WelcomeMessageContainer>
-        )}
-        <Header isLoggedIn={isLoggedIn && name} />
-        <DiamondComponent category={category} setCategory={setCategory} />
-      </Body>
-    </>
+    <Body>
+      <div>
+        <Navbar />
+        <CompactCarousel />
+        <Container>
+          <DiamondComponent category={category} setCategory={setCategory} />
+        </Container>
+      </div>
+    </Body>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
 // Define the constant list of diamonds with images
+
 const DIAMOND_LIST = [
   {
     id: 1,
@@ -82,6 +83,7 @@ const DiamondMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  text-align: left;
 `;
 
 const DiamondMenuH1 = styled.h1`
@@ -89,12 +91,14 @@ const DiamondMenuH1 = styled.h1`
   font-size: 36px;
   font-weight: 700;
   margin-left: 40px;
+  text-align: left;
 `;
 
 const DiamondMenuText = styled.p`
   max-width: 60%;
   color: #808080;
   margin-left: 40px;
+  text-align: left;
 `;
 
 const DiamondMenuContainer = styled.div`
@@ -102,6 +106,7 @@ const DiamondMenuContainer = styled.div`
   align-items: center;
   margin: 0 40px;
   position: relative;
+  text-align: left;
 `;
 
 const DiamondMenuList = styled.div`
@@ -113,7 +118,7 @@ const DiamondMenuList = styled.div`
   scroll-behavior: smooth;
   scrollbar-width: none; // For Firefox
   ms-overflow-style: none; // For Internet Explorer and Edge
-
+  text-align: left;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -124,6 +129,7 @@ const DiamondItem = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: 200px;
+  text-align: left;
 `;
 
 const DiamondImage = styled.img`
@@ -132,6 +138,7 @@ const DiamondImage = styled.img`
   cursor: pointer;
   border-radius: 50%;
   transition: 0.2s;
+  text-align: left;
   ${(props) => (props.active ? "border: 2px solid #49557e; padding: 2px;" : "")}
 `;
 
@@ -140,6 +147,7 @@ const Hr = styled.hr`
   height: 2px;
   background-color: #49557e;
   border: none;
+  text-align: left;
 `;
 
 const ScrollButton = styled.button`
@@ -148,27 +156,32 @@ const ScrollButton = styled.button`
   border: none;
   font-size: 24px;
   color: #49557e;
+  text-align: left;
 `;
 
 const DiamondDetailContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
+  text-align: left;
+  margin-top: 50px;
 `;
 
 const DiamondDetail = styled.div`
   display: flex;
   align-items: center;
   margin-right: 20px;
+  text-align: left;
 `;
 
 const DiamondDetailText = styled.p`
-  font-weight: 500;
-  font-size: 16px;
+  font-size: 20px;
+  text-align: left;
 `;
 
 const DetailImage = styled.img`
   width: 200px;
   border-radius: 100px;
+  text-align: left;
 `;
 
 export function DiamondComponent() {
@@ -234,10 +247,19 @@ export function DiamondComponent() {
               (item) => (
                 <DiamondDetail Detail key={item.id}>
                   <DetailImage src={item.img} alt={item.name} />
-                  <div>
-                    <DiamondDetailText>Name: {item.name}</DiamondDetailText>
-                    <DiamondDetailText>Carat: {item.carat}</DiamondDetailText>
-                    <DiamondDetailText>Detail: {item.detail}</DiamondDetailText>
+                  <div style={{ marginLeft: "30px" }}>
+                    <DiamondDetailText>
+                      <strong>Name:</strong>
+                      {item.name}
+                    </DiamondDetailText>
+                    <DiamondDetailText>
+                      <strong>Carat: </strong>
+                      {item.carat}
+                    </DiamondDetailText>
+                    <DiamondDetailText>
+                      <strong>Detail: </strong>
+                      {item.detail}
+                    </DiamondDetailText>
                   </div>
                 </DiamondDetail>
               )

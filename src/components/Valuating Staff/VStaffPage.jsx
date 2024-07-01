@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import NavbarOfManager from "./NavbarVS";
+import NavbarOfVS from "./NavbarVS";
 import styled from "styled-components";
 import ListServiceVS from "./ListServiceVS";
 const ManagePageContainer = styled.div`
   display: flex;
 `;
 
-function ValuatingStaffPage() {
+function VStaffPage() {
   return (
     <ManagePageContainer>
-      <NavbarOfManager />
+      <NavbarOfVS />
       <ListServiceVS />
     </ManagePageContainer>
   );
 }
 
-export default ValuatingStaffPage;
+export default VStaffPage;

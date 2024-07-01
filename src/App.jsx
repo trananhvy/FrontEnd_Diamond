@@ -30,8 +30,10 @@ import ListServiceVS from "./components/Valuating Staff/ListServiceVS";
 import ManagePage from "./components/Manage/ManagaPage";
 import NavbarOfManager from "./components/Manage/NavbarOfManager";
 import ManagerProfile from "./components/Manage/ManageProfile";
-import ValuatingStaffPage from "./components/Valuating Staff/ValuatingStaffPage";
+import ValuatingStaffPage from "./components/Valuating Staff/VStaffPage";
 import CStaffPage from "./components/Consulting Staff/CStaffPage";
+import VStaffPage from "./components/Valuating Staff/VStaffPage";
+import WhyCertificateDiamond from "./components/DiamondCheck/WhyCertificateDiamond";
 function App() {
   return (
     <>
@@ -47,7 +49,7 @@ function App() {
                 <Route path="calculate" element={<CalculateContent />} />
                 <Route
                   path="overviewcheck"
-                  element={<OverviewForGIACertificateCheck />}
+                  element={<WhyCertificateDiamond />}
                 />
                 <Route path="overviewedu" element={<OverviewForEducation />} />
                 <Route path="overviewser" element={<OverViewForService />} />
@@ -70,7 +72,7 @@ function App() {
                 <Route path="navbarM" element={<NavbarOfManager />} />
                 <Route path="liststaffcs" element={<ListServiceCS />} />
                 <Route path="liststaffvs" element={<ListServiceVS />} />
-                <Route path="vsPage" element={<ValuatingStaffPage />} />
+                <Route path="vsPage" element={<VStaffPage />} />
                 <Route path="vsProfile" element={<VStaffProfile />} />
                 <Route path="csProfile" element={<CSStaffProfile />} />
                 <Route path="csPage" element={<CStaffPage />} />
