@@ -245,7 +245,7 @@ export function DiamondComponent() {
           <DiamondDetailContainer>
             {DIAMOND_LIST.filter((item) => item.name === selectedCategory).map(
               (item) => (
-                <DiamondDetail Detail key={item.id}>
+                <DiamondDetail key={item.id}>
                   <DetailImage src={item.img} alt={item.name} />
                   <div style={{ marginLeft: "30px" }}>
                     <DiamondDetailText>

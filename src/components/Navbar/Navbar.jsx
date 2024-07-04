@@ -98,7 +98,7 @@ function Navbar({ setMenu }) {
       <NavbarContainer>
         <NavbarBrand onClick={() => setMenu("home")}>
           <Link to="/home" style={{ color: "inherit", textDecoration: "none" }}>
-            StoneAlgola
+            ValDTAVN
           </Link>
         </NavbarBrand>
         <NavbarMenu>
